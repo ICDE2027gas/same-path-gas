@@ -41,7 +41,7 @@
       "top_level_path": "service-concurrent-raw/",
       "payload_layout": "client-*/responses.jsonl",
       "manifest_path": "service-concurrent-raw/MANIFEST.json",
-      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/service-concurrent-raw.tar.gz"
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/service-concurrent-raw.tar.gz"
     },
     {
       "name": "replay-ablation-raw.tar.gz",
@@ -54,7 +54,7 @@
       "top_level_path": "replay-ablation-raw/",
       "payload_layout": "client-*/responses.jsonl",
       "manifest_path": "replay-ablation-raw/MANIFEST.json",
-      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/replay-ablation-raw.tar.gz"
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/replay-ablation-raw.tar.gz"
     },
     {
       "name": "service-serial-raw.tar.gz",
@@ -67,7 +67,7 @@
       "top_level_path": "service-serial-raw/",
       "payload_layout": "client-*/responses.jsonl",
       "manifest_path": "service-serial-raw/MANIFEST.json",
-      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/service-serial-raw.tar.gz"
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/service-serial-raw.tar.gz"
     },
     {
       "name": "workload-sensitivity-raw.tar.gz",
@@ -80,7 +80,7 @@
       "top_level_path": "workload-sensitivity-raw/",
       "payload_layout": "triple-*/block-*.json",
       "manifest_path": "workload-sensitivity-raw/MANIFEST.json",
-      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/workload-sensitivity-raw.tar.gz"
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/workload-sensitivity-raw.tar.gz"
     },
     {
       "name": "ganache-comparison-raw.tar.gz",
@@ -114,7 +114,7 @@
         "unchanged_payload_files": 1,
         "only_path_prefixes_changed": true
       },
-      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/ganache-comparison-raw.tar.gz"
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/ganache-comparison-raw.tar.gz"
     },
     {
       "name": "workflow-state.tar.gz",
@@ -127,7 +127,7 @@
       "top_level_path": "workflow-state/",
       "payload_layout": "A/node/; E/node/",
       "manifest_path": "workflow-state/MANIFEST.json",
-      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/workflow-state.tar.gz"
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/workflow-state.tar.gz"
     },
     {
       "name": "historical116-inputs.tar.gz",
@@ -164,7 +164,7 @@
         "unchanged_payload_files": 232,
         "only_path_prefixes_changed": true
       },
-      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/historical116-inputs.tar.gz"
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/historical116-inputs.tar.gz"
     }
   ]
 }

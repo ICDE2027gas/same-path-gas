@@ -6,13 +6,13 @@ Archive downloads are optional for building and using the standalone prototype. 
 
 | Package | Compressed bytes | Payload files | Extracted top-level path and purpose |
 | --- | ---: | ---: | --- |
-| [service-concurrent-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/service-concurrent-raw.tar.gz) | 78,439,352 | 288 | `service-concurrent-raw/`: main four-client P/S/C HTTP response streams |
-| [replay-ablation-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/replay-ablation-raw.tar.gz) | 78,358,534 | 288 | `replay-ablation-raw/`: separate four-client P/V/C HTTP response streams |
-| [service-serial-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/service-serial-raw.tar.gz) | 18,956,433 | 36 | `service-serial-raw/`: serial P/S/C HTTP response streams |
-| [workload-sensitivity-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/workload-sensitivity-raw.tar.gz) | 1,421,997 | 1,152 | `workload-sensitivity-raw/`: every warmup and measured native block in the controlled suite |
-| [ganache-comparison-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/ganache-comparison-raw.tar.gz) | 3,660,028 | 2 | `ganache-comparison-raw/`: historical same-engine `all-requests.jsonl` and `blocks.jsonl` |
-| [workflow-state.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/workflow-state.tar.gz) | 430,159 | 80 | `workflow-state/`: closed ERC20 and Pair state databases under `E/node/` and `A/node/` |
-| [historical116-inputs.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/historical116-inputs.tar.gz) | 1,343,758 | 233 | `historical116-inputs/`: 116 input JSONs, 116 result JSONs, and `events.jsonl` |
+| [service-concurrent-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/service-concurrent-raw.tar.gz) | 78,439,352 | 288 | `service-concurrent-raw/`: main four-client P/S/C HTTP response streams |
+| [replay-ablation-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/replay-ablation-raw.tar.gz) | 78,358,534 | 288 | `replay-ablation-raw/`: separate four-client P/V/C HTTP response streams |
+| [service-serial-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/service-serial-raw.tar.gz) | 18,956,433 | 36 | `service-serial-raw/`: serial P/S/C HTTP response streams |
+| [workload-sensitivity-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/workload-sensitivity-raw.tar.gz) | 1,421,997 | 1,152 | `workload-sensitivity-raw/`: every warmup and measured native block in the controlled suite |
+| [ganache-comparison-raw.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/ganache-comparison-raw.tar.gz) | 3,660,028 | 2 | `ganache-comparison-raw/`: historical same-engine `all-requests.jsonl` and `blocks.jsonl` |
+| [workflow-state.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/workflow-state.tar.gz) | 430,159 | 80 | `workflow-state/`: closed ERC20 and Pair state databases under `E/node/` and `A/node/` |
+| [historical116-inputs.tar.gz](https://github.com/ICDE2027gas/same-path-gas/releases/download/v0.1.0/historical116-inputs.tar.gz) | 1,343,758 | 233 | `historical116-inputs/`: 116 input JSONs, 116 result JSONs, and `events.jsonl` |
 
 The first four packages are the main service, replay, serial, and controlled raw measurement groups. The fifth preserves the historical policy comparison. The last two supply inputs for exact recorded-context reproduction. Each archive additionally contains `<top-level>/MANIFEST.json` with every payload file's relative path, byte size, and SHA256. The file counts above exclude that one embedded manifest. `raw_bytes` in `releases.json` is the sum of payload bytes, excluding the manifest and tar metadata.
 
