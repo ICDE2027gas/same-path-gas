@@ -11,4 +11,6 @@ Completed checks cover:
 
 Subsequent comment edits were checked to preserve executable code. All four source patches were applied to the specified upstream files and their resulting contents verified. Input identities, data tables, and the analysis definitions remain associated with the original experiments reported in the paper.
 
+The historical import adapter also verified all 233 distributed files and all 116 transaction associations after event-path metadata was made portable. Its input inventory reflects the distributed event stream. All 232 transaction and result files retain their original bytes.
+
 These checks exercise the packaged interfaces at the scope listed above. The [benchmark guide](benchmarks/README.md) gives the complete process counts, method orders, measurement boundaries, and analysis procedures for reproducing the paper's experiments.

@@ -54,7 +54,7 @@ def prepare_capture(inputs, out, binary):
         raise ValueError('Complete declared corpus required')
     if not all(corpus[key] is True for key in ('complete', 'original_assertions_passed', 'provider_closed')) or corpus['errors']:
         raise ValueError('Captured source did not complete')
-    if len(expected['files']) != 233 or expected['count'] != 116 or expected['total_bytes'] != 11691660:
+    if len(expected['files']) != 233 or expected['count'] != 116 or expected['total_bytes'] != 11684096:
         raise ValueError('Complete 233-file historical payload inventory required')
     inputs = inputs.resolve(strict=True)
     files = {}
@@ -71,7 +71,7 @@ def prepare_capture(inputs, out, binary):
         'complete', 'errors', 'source_pin', 'fork', 'original_assertions_passed', 'provider_closed', 'cases', 'expected_cases', 'raw_sends')}
     receipt.update({'schema': 'round1714-uniswap-materialization-v1', 'files': list(files.values()),
                     'inputs': [corpus_spec, expected_spec], 'source_receipt_identity': corpus['source_receipt_identity'],
-                    'portable_capture_adapter': True, 'captured_payloads_unchanged': True})
+                    'portable_capture_adapter': True, 'captured_transactions_unchanged': True, 'event_paths_normalized': True})
     for row in receipt['raw_sends']:
         for key in ('input', 'result'):
             original = row[key]

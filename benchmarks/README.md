@@ -1,6 +1,6 @@
 # Experiments and measurements
 
-This guide describes the experiments for same-path gas certificates. For building and using the estimator, start with the [prototype guide](../README.md). The compact [result tables](results/) contain the measurements behind the reported CPU, throughput, latency, memory, ablation, sensitivity, and same-engine policy comparisons. Seven data archives are packaged, with upload and public URLs pending. The [data guide](DATA.md) lists their exact names, sizes, hashes and contents.
+This guide describes the experiments for same-path gas certificates. For building and using the estimator, start with the [prototype guide](../README.md). The compact [result tables](results/) contain the measurements behind the reported CPU, throughput, latency, memory, ablation, sensitivity, and same-engine policy comparisons. Seven data archives are available in the [v0.1.0 release](https://github.com/ICDE2027gas/same-path-gas/releases/tag/v0.1.0). The [data guide](DATA.md) lists their exact names, sizes, hashes and contents.
 
 ## Choose an experiment
 
@@ -241,4 +241,4 @@ The main service experiment finds about 24.8% and 25.4% lower concurrent C/P who
 | `ganache-rounds.csv`, `ganache-strata-and-positions.csv` | All 12 within-process rounds and full overlapping groups/input totals | Same-engine comparison and negative groups |
 | `manifest.json` | Versions, source-summary identities and table hashes | Integrity and provenance |
 
-The compact tables contain process/configuration/position measurements and their components for recomputing the displayed aggregates and uncertainty formulas. Response streams record each request's phase, identity, response body and latency for exact tail recalculation and response reconciliation. The [data guide](DATA.md) maps each packaged archive to its experiment and records the pending upload status. Verify archive hashes before using the data. Archive downloads are optional for building and using the prototype.
+The compact tables contain process/configuration/position measurements and their components for recomputing the displayed aggregates and uncertainty formulas. Response streams record each request's phase, identity, response body and latency for exact tail recalculation and response reconciliation. The [data guide](DATA.md) maps each archive to its experiment and provides download links. Verify archive hashes before using the data. Archive downloads are optional for building and using the prototype.

@@ -30,10 +30,10 @@
   },
   "recorded_source_files": 2414,
   "recorded_paid_run": "control-paid-1750-01",
-  "portability_changes": "Importer/control manifests and paths use new binary identities and regenerated content-bound references. Runtime comments have been edited for readability. Runtime executable code matches the recorded historical version. recorded_runtime_afterimages retains the original source identities.",
+  "portability_changes": "Importer/control manifests and paths use new binary identities and regenerated content-bound references. Runtime comments have been edited for readability. Runtime executable code matches the recorded historical version. recorded_runtime_afterimages retains the original source identities. Event-source paths use portable relative labels. All 116 transaction inputs and 116 recorded results retain their original bytes.",
   "current_prototype_is_a_distinct_runtime": true,
   "input_files": {
-    "bytes": 11691660,
+    "bytes": 11684096,
     "count": 233
   },
   "recorded_references": [
@@ -121,5 +121,9 @@
       "sha256": "294d801275ada7f91ad9662f31ed65a5095dee86f00e630bfd6d2ae5e54f826c",
       "git_blob": "fa50370b30a09b40af82ec5a0c755dfd02b16546"
     }
+  },
+  "recorded_input_files": {
+    "bytes": 11691660,
+    "count": 233
   }
 }

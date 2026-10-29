@@ -1,14 +1,15 @@
 {
   "schema": "gas-certificate-release-assets-v1",
   "publication": {
-    "status": "packaged_not_uploaded",
-    "download_url": null,
+    "status": "published",
+    "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/tag/v0.1.0",
+    "tag": "v0.1.0",
     "filenames_final": true
   },
   "totals": {
     "archives": 7,
-    "bytes": 182648923,
-    "raw_bytes": 2562235164,
+    "bytes": 182610261,
+    "raw_bytes": 2558548196,
     "payload_files": 2079,
     "embedded_manifests": 7
   },
@@ -39,7 +40,8 @@
       "purpose": "Main four-client P/S/C HTTP response samples for ERC20 and Pair workflows.",
       "top_level_path": "service-concurrent-raw/",
       "payload_layout": "client-*/responses.jsonl",
-      "manifest_path": "service-concurrent-raw/MANIFEST.json"
+      "manifest_path": "service-concurrent-raw/MANIFEST.json",
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/service-concurrent-raw.tar.gz"
     },
     {
       "name": "replay-ablation-raw.tar.gz",
@@ -51,7 +53,8 @@
       "purpose": "Separate four-client P/V/C replay-ablation HTTP response samples.",
       "top_level_path": "replay-ablation-raw/",
       "payload_layout": "client-*/responses.jsonl",
-      "manifest_path": "replay-ablation-raw/MANIFEST.json"
+      "manifest_path": "replay-ablation-raw/MANIFEST.json",
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/replay-ablation-raw.tar.gz"
     },
     {
       "name": "service-serial-raw.tar.gz",
@@ -63,7 +66,8 @@
       "purpose": "One-client P/S/C serial HTTP response samples.",
       "top_level_path": "service-serial-raw/",
       "payload_layout": "client-*/responses.jsonl",
-      "manifest_path": "service-serial-raw/MANIFEST.json"
+      "manifest_path": "service-serial-raw/MANIFEST.json",
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/service-serial-raw.tar.gz"
     },
     {
       "name": "workload-sensitivity-raw.tar.gz",
@@ -75,19 +79,42 @@
       "purpose": "All warmup and measured native blocks for 27 configurations and 5 mixtures, across 18 processes.",
       "top_level_path": "workload-sensitivity-raw/",
       "payload_layout": "triple-*/block-*.json",
-      "manifest_path": "workload-sensitivity-raw/MANIFEST.json"
+      "manifest_path": "workload-sensitivity-raw/MANIFEST.json",
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/workload-sensitivity-raw.tar.gz"
     },
     {
       "name": "ganache-comparison-raw.tar.gz",
-      "bytes": 3698031,
-      "sha256": "9d3ae24a537676b4541d80fe142223114585da7dfd5f16cc4997379d286a967d",
-      "raw_bytes": 48076999,
+      "bytes": 3660028,
+      "sha256": "6f0b26b27b8b45d80e29bb5a9f642a9bc89ac000f53c3aa60eb43951cf734ef8",
+      "raw_bytes": 44397595,
       "files": 2,
       "group": "historical_raw",
       "purpose": "Historical same-engine Istanbul comparison: per-request estimator observations and all method blocks.",
       "top_level_path": "ganache-comparison-raw/",
       "payload_layout": "all-requests.jsonl; blocks.jsonl",
-      "manifest_path": "ganache-comparison-raw/MANIFEST.json"
+      "manifest_path": "ganache-comparison-raw/MANIFEST.json",
+      "original_archive": {
+        "bytes": 3698031,
+        "sha256": "9d3ae24a537676b4541d80fe142223114585da7dfd5f16cc4997379d286a967d",
+        "raw_bytes": 48076999
+      },
+      "path_metadata": {
+        "member": "ganache-comparison-raw/all-requests.jsonl",
+        "original_member": {
+          "bytes": 48067772,
+          "sha256": "57f9c6cab46a143d246890b3dedd69dddc3b4d130920c633cb60f1e6b1430ee1"
+        },
+        "published_member": {
+          "bytes": 44388368,
+          "sha256": "a5fb82e8fd4fd0fcd485f083beb3d7122abf2ea53d7c9fc1d6ed7b2a0c5d505a"
+        },
+        "changed_fields": {
+          "$.input.path": 33756
+        },
+        "unchanged_payload_files": 1,
+        "only_path_prefixes_changed": true
+      },
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/ganache-comparison-raw.tar.gz"
     },
     {
       "name": "workflow-state.tar.gz",
@@ -99,19 +126,45 @@
       "purpose": "Closed ERC20 and Pair Geth state databases for exact recorded service contexts.",
       "top_level_path": "workflow-state/",
       "payload_layout": "A/node/; E/node/",
-      "manifest_path": "workflow-state/MANIFEST.json"
+      "manifest_path": "workflow-state/MANIFEST.json",
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/workflow-state.tar.gz"
     },
     {
       "name": "historical116-inputs.tar.gz",
-      "bytes": 1344417,
-      "sha256": "42e75d91ef7f252541b7d61906ba87dae4b0f1036abe5ac6fbd984661ab5ce6e",
-      "raw_bytes": 11691660,
+      "bytes": 1343758,
+      "sha256": "4bf7593aa12612305c6950fd0a56d2711e52dda5f319ef33555f38d242ca90c0",
+      "raw_bytes": 11684096,
       "files": 233,
       "group": "input",
       "purpose": "Complete 116-send historical corpus: 116 input JSONs, 116 result JSONs, and one event stream.",
       "top_level_path": "historical116-inputs/",
       "payload_layout": "transactions/*.input.json; transactions/*.result.json; events.jsonl",
-      "manifest_path": "historical116-inputs/MANIFEST.json"
+      "manifest_path": "historical116-inputs/MANIFEST.json",
+      "original_archive": {
+        "bytes": 1344417,
+        "sha256": "42e75d91ef7f252541b7d61906ba87dae4b0f1036abe5ac6fbd984661ab5ce6e",
+        "raw_bytes": 11691660
+      },
+      "path_metadata": {
+        "member": "historical116-inputs/events.jsonl",
+        "original_member": {
+          "bytes": 989970,
+          "sha256": "8118bc33275513fd5f6a4f0f0556237242e8e7fb07bcf518ff19741882db55b4"
+        },
+        "published_member": {
+          "bytes": 982406,
+          "sha256": "ae9e17a4ce98d6a76a112bc94dfe7e50ce889043a7ebd4f857754b5c45279492"
+        },
+        "changed_fields": {
+          "$.inputs[].path": 41,
+          "$.executable.path": 1,
+          "$.callback_error.stack": 11,
+          "$.error.stack": 11
+        },
+        "unchanged_payload_files": 232,
+        "only_path_prefixes_changed": true
+      },
+      "download_url": "https://github.com/ICDE2027gas/same-path-gas/releases/download/untagged-d8e5100d4c18a915142a/historical116-inputs.tar.gz"
     }
   ]
 }

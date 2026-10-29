@@ -42,11 +42,16 @@ From the patched Geth checkout, retaining `ARTIFACT_DIR` from the build commands
 
 The observed default-mode results are:
 
-| Example | Estimated gas | Trials | Observed report |
-| --- | ---: | ---: | --- |
-| `sstore.json` | 43,761 | 1 | Certified. Writes a storage slot, emits a log, and returns 42 |
-| `nested-stipend.json` | 34,430 | 1 | Certified. 1 value call, 2 frames, and required entry gas greater than gas consumed |
-| `gas-fallback.json` | 21,169 | 6 | `gas_not_immediate_call`. Ordinary search completes for a program that executes `GAS` followed by `POP` |
+<table>
+<thead>
+<tr><th width="180">Example</th><th width="140">Estimated gas</th><th width="65">Trials</th><th>Observed report</th></tr>
+</thead>
+<tbody>
+<tr><td><code>sstore.json</code></td><td align="right">43,761</td><td align="right">1</td><td>Certified. Storage write, log, and return value 42.</td></tr>
+<tr><td><code>nested-stipend.json</code></td><td align="right">34,430</td><td align="right">1</td><td>Certified. 1 value call, 2 frames, entry demand exceeds consumption.</td></tr>
+<tr><td><code>gas-fallback.json</code></td><td align="right">21,169</td><td align="right">6</td><td>Fallback. <code>GAS</code> is followed by <code>POP</code>.</td></tr>
+</tbody>
+</table>
 
 The JSON result includes `estimated_gas`, `certificate`, `trials`, and `prestate_root`. Read `certificate.candidate` as a certified budget only when `certificate.certified` is true. On fallback, the report explains why checking stopped and the ordinary estimator supplies the estimate. Estimation failures include `error` and, for a revert, `revert_data`.
 
@@ -77,14 +82,19 @@ The observed stock fallback also returned 21,169 gas with the same 6 trials. The
 
 Algorithm 1 is implemented through EVM event callbacks in `certificate.go`. The following map connects its procedures and budget calculation to those callbacks:
 
-| Paper operation | Implementation |
-| --- | --- |
-| `EnterFrame` | [`certificateObserver.enter`](geth/eth/gasestimator/certificate.go#L209) initializes and pushes the frame record. |
-| `Accumulate` | [`opcode`](geth/eth/gasestimator/certificate.go#L296) composes an ordinary instruction, and [`exit`](geth/eth/gasestimator/certificate.go#L349) composes a completed call into its parent. |
-| `CallEntry` | [`opcode`](geth/eth/gasestimator/certificate.go#L273) saves call parameters. The child-entry branch of [`enter`](geth/eth/gasestimator/certificate.go#L221) computes the local charge and checks gas forwarding. |
-| `SuccessfulExit` | [`certificateObserver.exit`](geth/eth/gasestimator/certificate.go#L317) checks the completed frame and combines its summary with the parent. |
-| Inverse forwarding bound `phi(k)` | [`phiCertificate`](geth/eth/gasestimator/certificate.go#L200) computes the bound with checked arithmetic. |
-| Root budget `G* = max(I + M, F)` | [`certificateObserver.finish`](geth/eth/gasestimator/certificate.go#L359) forms the candidate and checks it against the high limit after the initial execution completes. |
+<table>
+<thead>
+<tr><th width="300">Paper operation</th><th>Implementation</th></tr>
+</thead>
+<tbody>
+<tr><td><code>EnterFrame</code></td><td><a href="geth/eth/gasestimator/certificate.go#L209"><code>certificateObserver.enter</code></a> initializes and pushes the frame record.</td></tr>
+<tr><td><code>Accumulate</code></td><td><a href="geth/eth/gasestimator/certificate.go#L296"><code>opcode</code></a> composes an ordinary instruction, and <a href="geth/eth/gasestimator/certificate.go#L349"><code>exit</code></a> composes a completed call into its parent.</td></tr>
+<tr><td><code>CallEntry</code></td><td><a href="geth/eth/gasestimator/certificate.go#L273"><code>opcode</code></a> saves call parameters. The child-entry branch of <a href="geth/eth/gasestimator/certificate.go#L221"><code>enter</code></a> computes the local charge and checks gas forwarding.</td></tr>
+<tr><td><code>SuccessfulExit</code></td><td><a href="geth/eth/gasestimator/certificate.go#L317"><code>certificateObserver.exit</code></a> checks the completed frame and combines its summary with the parent.</td></tr>
+<tr><td>Inverse forwarding bound <code>phi(k)</code></td><td><a href="geth/eth/gasestimator/certificate.go#L200"><code>phiCertificate</code></a> computes the bound with checked arithmetic.</td></tr>
+<tr><td>Root budget <code>G* = max(I + M, F)</code></td><td><a href="geth/eth/gasestimator/certificate.go#L359"><code>certificateObserver.finish</code></a> forms the candidate and checks it against the high limit after the initial execution completes.</td></tr>
+</tbody>
+</table>
 
 The paper's frame variables `e`, `q`, and `m` correspond to `entry`, `used`, and `need` in `certificateFrame`. The checked forwarding flag `gasForward` corresponds to `certificateCall.capPattern`.
 

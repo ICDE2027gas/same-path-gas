@@ -156,8 +156,8 @@
   "count": 116,
   "files": {
     "events.jsonl": {
-      "bytes": 989970,
-      "sha256": "8118bc33275513fd5f6a4f0f0556237242e8e7fb07bcf518ff19741882db55b4"
+      "bytes": 982406,
+      "sha256": "ae9e17a4ce98d6a76a112bc94dfe7e50ce889043a7ebd4f857754b5c45279492"
     },
     "transactions/000000.input.json": {
       "bytes": 71522,
@@ -1091,8 +1091,25 @@
   "fixture_reuse": true,
   "fork": "istanbul",
   "node": "v12.22.12",
-  "purpose": "Expected original captured prestate/message/context and result identities. Payload files remain a separate data attachment.",
+  "purpose": "Expected captured transaction and result identities, with portable path metadata in the event stream. Payload files are distributed as a data attachment.",
   "schema": "gas-certificate-historical116-files-v1",
   "source_pin": "4dd59067c76dea4a0e8e4bfdda41877a6b16dedc",
-  "total_bytes": 11691660
+  "total_bytes": 11684096,
+  "event_path_metadata": {
+    "original_member": {
+      "bytes": 989970,
+      "sha256": "8118bc33275513fd5f6a4f0f0556237242e8e7fb07bcf518ff19741882db55b4"
+    },
+    "published_member": {
+      "bytes": 982406,
+      "sha256": "ae9e17a4ce98d6a76a112bc94dfe7e50ce889043a7ebd4f857754b5c45279492"
+    },
+    "changed_fields": {
+      "$.inputs[].path": 41,
+      "$.executable.path": 1,
+      "$.callback_error.stack": 11,
+      "$.error.stack": 11
+    },
+    "only_path_prefixes_changed": true
+  }
 }
