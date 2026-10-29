@@ -1,0 +1,315 @@
+{
+  "schema": "same-path-gas-certificate-compact-results-v1",
+  "upstream_geth": {
+    "version": "v1.17.8",
+    "commit": "a579077007b98217c3e253a66e4b452ca0c32b96"
+  },
+  "application": {
+    "repository": "https://github.com/Uniswap/v2-core",
+    "commit": "4dd59067c76dea4a0e8e4bfdda41877a6b16dedc",
+    "package": "@uniswap/v2-core@1.0.1"
+  },
+  "experiments": {
+    "main": {
+      "methods": [
+        "P",
+        "S",
+        "C"
+      ],
+      "process_triples_per_workflow": 12,
+      "source_variant": "accepted-service",
+      "rules": "Osaka"
+    },
+    "serial": {
+      "methods": [
+        "P",
+        "S",
+        "C"
+      ],
+      "process_triples_per_workflow": 6,
+      "source_variant": "accepted-service",
+      "rules": "Osaka"
+    },
+    "replay": {
+      "methods": [
+        "P",
+        "V",
+        "C"
+      ],
+      "process_triples_per_workflow": 12,
+      "source_variant": "current-service",
+      "rules": "Osaka"
+    },
+    "sensitivity": {
+      "methods": [
+        "S",
+        "C",
+        "V"
+      ],
+      "process_triples": 6,
+      "source_variant": "coverage-extension",
+      "rules": "Osaka"
+    },
+    "ganache": {
+      "methods": [
+        "S",
+        "C",
+        "ganache"
+      ],
+      "independent_processes": 1,
+      "within_process_rounds": 12,
+      "rules": "Istanbul"
+    }
+  },
+  "measurement_source_identities": {
+    "main-process-accounting": {
+      "bytes": 2037920,
+      "sha256": "3444c9eaf4e95ef052ad6853b1dd5dd09b76a9c40235c9a741de16ecce8d9ad8"
+    },
+    "main-http-accounting": {
+      "bytes": 4263063,
+      "sha256": "cbdcacf41192c0426cd970cc6da033c312614d6f010de075d8744a5c3f1e09a9"
+    },
+    "serial-process-accounting": {
+      "bytes": 83299,
+      "sha256": "fb42f196e31fe8a1006d4bfd9e31fe8259155f671dfc41a023695c42053ef627"
+    },
+    "serial-http-accounting": {
+      "bytes": 1967349,
+      "sha256": "5dc2fc3e4a46b1c69f6903d342096cc737a342d37775cc262f65b2d6852ff96f"
+    },
+    "replay-accounting": {
+      "bytes": 12780662,
+      "sha256": "6a05642b4d711ef8dcfd8781dd6031343036babc785b2de3b8bab4c3d1c889e8"
+    },
+    "replay-http-accounting": {
+      "bytes": 4260620,
+      "sha256": "2fdb6e9369dd2b29aee031bde3973a22b2cef81809cdd7ba6bc68c29af31c569"
+    },
+    "sensitivity-accounting": {
+      "bytes": 2401849,
+      "sha256": "a8dc03baa6ef20aba94d1ab3dd72076aeef0c1b9ca7bd7493b83f6d7d096fafc"
+    },
+    "workflow-qualification": {
+      "bytes": 196130,
+      "sha256": "9e209bedf5ce2b6b0330a2ee92f04cdd46f425aa51b429cfaa488f7af5000a66"
+    },
+    "ganache-accounting": {
+      "bytes": 160155,
+      "sha256": "196883e1c3468449a5be51ea8d04f9325a1201b3f6e583e878869c01e9e4f2c6"
+    },
+    "qualification-E-P": {
+      "bytes": 21123,
+      "sha256": "380615d48117a2ceef1e8703a3a9d2e3c40db41206ff2991bdf5fb6670881ef7"
+    },
+    "qualification-E-S": {
+      "bytes": 21394,
+      "sha256": "9956566d5fbfd65c6c7f0c4788d8b7352f0ee22974582611d8f35d648994a7ed"
+    },
+    "qualification-E-C": {
+      "bytes": 21381,
+      "sha256": "88a38e872e84bdedbbd28f1e847af888983785b913ca3d20e1c5f8ac96d52441"
+    },
+    "qualification-A-P": {
+      "bytes": 3397081,
+      "sha256": "1a51b5b621b56007936d4d1f53925808217f5e02652295cf2aa6dfeaee2e71fa"
+    },
+    "qualification-A-S": {
+      "bytes": 3397342,
+      "sha256": "87ef866e02df8f8d95c8d2719ee0fda03b09ed6a57039bf721a5854afea45c05"
+    },
+    "qualification-A-C": {
+      "bytes": 3397342,
+      "sha256": "fe6f591f29e771ad8fabe097be206e6c1ec41c94d5c481e77a761a92418c4d1f"
+    }
+  },
+  "tables": [
+    {
+      "file": "service-processes.csv",
+      "rows": 180,
+      "bytes": 63562,
+      "sha256": "95f32df05bcf12883eb5773c55b3d511baf4378dd4821b031ba6a14b2025009c",
+      "description": "Every standalone server process, CPU components, request counts, GC, allocation and memory snapshots.",
+      "source_ids": [
+        "main-process-accounting",
+        "serial-process-accounting",
+        "replay-accounting"
+      ]
+    },
+    {
+      "file": "service-clients.csv",
+      "rows": 576,
+      "bytes": 76580,
+      "sha256": "98a2359d78409587d75767fa0229a0d39c27e52442a98bee6c1dadf09d676a36",
+      "description": "Every concurrent client process; lifetime CPU includes preparation and deferred validation.",
+      "source_ids": [
+        "main-process-accounting",
+        "replay-accounting"
+      ]
+    },
+    {
+      "file": "http-populations-and-processes.csv",
+      "rows": 252,
+      "bytes": 24137,
+      "sha256": "f99c353b021d3bf47f1b000846873b024cb2f8798cacbb1ec14e7938a9271bf9",
+      "description": "Measured HTTP distributions per process and complete method/workflow/class populations.",
+      "source_ids": [
+        "main-http-accounting",
+        "serial-http-accounting",
+        "replay-accounting"
+      ]
+    },
+    {
+      "file": "http-positions.csv",
+      "rows": 1773,
+      "bytes": 147419,
+      "sha256": "6233ae5313d71507dcae4d6632e68a923883d2679e630947268464f2065d9ba0",
+      "description": "Every source position per method and experiment, aggregated across its processes, including slower positions.",
+      "source_ids": [
+        "main-http-accounting",
+        "serial-http-accounting",
+        "replay-accounting"
+      ]
+    },
+    {
+      "file": "http-process-positions.csv",
+      "rows": 17730,
+      "bytes": 1777132,
+      "sha256": "218770308db76398cc7c1eff65d17237575178965b1b69337b6925565229898a",
+      "description": "All process-position HTTP distributions in main, serial and replay experiments.",
+      "source_ids": [
+        "main-http-accounting",
+        "serial-http-accounting",
+        "replay-http-accounting"
+      ]
+    },
+    {
+      "file": "http-process-classes.csv",
+      "rows": 540,
+      "bytes": 53548,
+      "sha256": "c1273145d928d7d85e774a787eb77f8013847e26ff32a5c84f455ac630587c3f",
+      "description": "Complete request classes within every service server process.",
+      "source_ids": [
+        "main-http-accounting",
+        "serial-http-accounting",
+        "replay-http-accounting"
+      ]
+    },
+    {
+      "file": "source-positions.csv",
+      "rows": 197,
+      "bytes": 7283,
+      "sha256": "210eae24090ce601e77055bf0f43ddd8d6c98b1a8e7a215b93207e62f65e46ed",
+      "description": "Source-order request identity shared by service experiments.",
+      "source_ids": [
+        "main-http-accounting"
+      ]
+    },
+    {
+      "file": "workflow-qualification.csv",
+      "rows": 197,
+      "bytes": 37709,
+      "sha256": "87703afbbe28da55969c1e12c60a263b8ad659836ad71c40dd4119ebabcf6ac6",
+      "description": "Untimed admission, attempts, state context, returned C budget and callback counts for all 197 positions.",
+      "source_ids": [
+        "workflow-qualification"
+      ]
+    },
+    {
+      "file": "workflow-returned-estimates.csv",
+      "rows": 591,
+      "bytes": 67493,
+      "sha256": "4ccceae356742cfd7a51b699c408131ce82d15946f82bdbae8787460111f8203",
+      "description": "All P/S/C returned budgets or error payloads; eth_call result identities are from untimed premeasurement qualification.",
+      "source_ids": [
+        "qualification-E-P",
+        "qualification-E-S",
+        "qualification-E-C",
+        "qualification-A-P",
+        "qualification-A-S",
+        "qualification-A-C"
+      ]
+    },
+    {
+      "file": "sensitivity-configurations.csv",
+      "rows": 486,
+      "bytes": 178038,
+      "sha256": "5eda047b4a1da70d9229bb26d0bda0947e0062dcd05b235d4d869fa8f73f5210",
+      "description": "All 27 configurations by six process triples and S/C/V; each row sums 64 measured estimates.",
+      "source_ids": [
+        "sensitivity-accounting"
+      ]
+    },
+    {
+      "file": "sensitivity-mixtures.csv",
+      "rows": 90,
+      "bytes": 37223,
+      "sha256": "d9b83c04cbe35eb5e5783a807534b4ec37d644f20c0e266d45d9e617a727976d",
+      "description": "All five executed mixtures by six process triples and S/C/V; each row sums four 72-request measured cycles.",
+      "source_ids": [
+        "sensitivity-accounting"
+      ]
+    },
+    {
+      "file": "sensitivity-mixture-multiplicities.csv",
+      "rows": 135,
+      "bytes": 2369,
+      "sha256": "2a699326d2b4f169aa247e95c9cef14d54cb34b48713ab20bb43a008dfee5e22",
+      "description": "Exact multiplicity of each input in a 72-request mixture cycle, including zeros.",
+      "source_ids": [
+        "sensitivity-accounting"
+      ]
+    },
+    {
+      "file": "sensitivity-models.csv",
+      "rows": 6,
+      "bytes": 475,
+      "sha256": "9a2ea19b6cc313d5bf6a2664d4fe5866fd1c10991dc90e4fa4f70063610bbf95",
+      "description": "Six additive-model predictions; crossings are interpolations, not measured schedules.",
+      "source_ids": [
+        "sensitivity-accounting"
+      ]
+    },
+    {
+      "file": "sensitivity-processes.csv",
+      "rows": 18,
+      "bytes": 7428,
+      "sha256": "bfac3eb6e43f07b27e3ad23e68f5113832b8d71221a81850a04418dcacf52408",
+      "description": "All 18 native process lifetimes and full-section measurements.",
+      "source_ids": [
+        "sensitivity-accounting"
+      ]
+    },
+    {
+      "file": "sensitivity-qualification.csv",
+      "rows": 81,
+      "bytes": 11166,
+      "sha256": "0939d6577baba5eb97cdb8b19ed1a048857711bf8d3d026b35ebfe28a2f69226",
+      "description": "Untimed admission, ordered trials and work counters for all 27 inputs and S/C/V.",
+      "source_ids": [
+        "sensitivity-accounting"
+      ]
+    },
+    {
+      "file": "ganache-rounds.csv",
+      "rows": 36,
+      "bytes": 2274,
+      "sha256": "9cb92d2726eb2e15f45808d1ead4012510f16fa6210dbca3cad948e5ba4e4146",
+      "description": "All 12 within-process measured rounds and all three methods, without treating rounds as independent processes.",
+      "source_ids": [
+        "ganache-accounting"
+      ]
+    },
+    {
+      "file": "ganache-strata-and-positions.csv",
+      "rows": 858,
+      "bytes": 31017,
+      "sha256": "c53bbd16fa7c8d1e6f1f16065d325dfe3c3c71eae784d1baebcba0791654a593",
+      "description": "Complete fixed labels, cases and input positions, retaining overlapping groups and warmup where recorded.",
+      "source_ids": [
+        "ganache-accounting"
+      ]
+    }
+  ],
+  "scope": "Exact extraction from retained measurement summaries. CPU/wall/count components are retained. Quantiles are observed order statistics; exact recomputation needs the original latency samples. No plot or post-hoc analysis programs are part of this directory."
+}

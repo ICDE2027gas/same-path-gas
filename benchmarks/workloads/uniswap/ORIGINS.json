@@ -1,0 +1,69 @@
+{
+  "adaptation": "Only metadata/path bindings change. Every entry and header, config, count, response, request, order and selector remains equal to the recorded input.",
+  "cohorts": {
+    "A": {
+      "case_count": 19,
+      "count": 188,
+      "expected_reverts": 11,
+      "headers": 183,
+      "original_context": {
+        "bytes": 377214,
+        "sha256": "d448d20f1c10b18a1fbd2f15ccb9d877c8035e8cbe64f2dd51a6133ef67c8586"
+      },
+      "original_node_name": "current-pair-auto-gas-rpc",
+      "original_population": {
+        "bytes": 2309616,
+        "sha256": "efabbe46e31465cf3af37b28151c80e1a0184ecb5c0bfd9b74b5fe1629efa943"
+      },
+      "portable_context": {
+        "bytes": 375952,
+        "path": "A.context.json",
+        "sha256": "fcf07ee9a46e9456192b9c41abdb4b85308923291ba608534e972d44368700e5"
+      },
+      "portable_population": {
+        "bytes": 2309485,
+        "path": "A.population.json",
+        "sha256": "c3165b3dcbcaa64e833f45957c7323abd201d4584a87e85097727622b9bb90ea"
+      }
+    },
+    "E": {
+      "case_count": 7,
+      "count": 9,
+      "expected_reverts": 2,
+      "headers": 15,
+      "original_context": {
+        "bytes": 33249,
+        "sha256": "6b0b27ad1b664b3923c695c10d4fb53513fbedc5910efc66f8f10b63847a5be8"
+      },
+      "original_node_name": "current-erc20-rpc",
+      "original_population": {
+        "bytes": 40028,
+        "sha256": "e6c9c57770a425b8d00038beddb36faccb22df1f0da54a900b2b757a0a4d0d5d"
+      },
+      "portable_context": {
+        "bytes": 32014,
+        "path": "E.context.json",
+        "sha256": "2c7c2f4228d371ba13f074bc2e20ce391608823b6b6c2467cd71add65edee9a7"
+      },
+      "portable_population": {
+        "bytes": 39897,
+        "path": "E.population.json",
+        "sha256": "b6e4da4198691d31e3317bfd6a5f846f644458f9dfcb1c476adefdb57f39bc86"
+      }
+    }
+  },
+  "schema": "gas-certificate-workload-origins-v1",
+  "source_variants": {
+    "controlled": "current-service + benign coverage fixture",
+    "main_and_serial": "accepted-service",
+    "replay": "current-service"
+  },
+  "upstream": {
+    "commit": "4dd59067c76dea4a0e8e4bfdda41877a6b16dedc",
+    "compiler": "0.5.16+commit.9c3226ce",
+    "evm_target": "istanbul",
+    "npm_package": "@uniswap/v2-core@1.0.1",
+    "optimizer_runs": 999999,
+    "repository": "https://github.com/Uniswap/v2-core"
+  }
+}

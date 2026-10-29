@@ -1,0 +1,365 @@
+{
+  "cohorts": {
+    "A": {
+      "bytes": 2139563,
+      "excluded": [
+        "nodekey",
+        "nodes",
+        "blobpool",
+        "LOCK outside chaindata"
+      ],
+      "file_count": 41,
+      "files": {
+        "current-pair-auto-gas-rpc/chaindata/000002.log": {
+          "bytes": 247615,
+          "sha256": "dc746abaa02144d8eb037bb04308751348340266db7bd3599ef1e54d507aab6e"
+        },
+        "current-pair-auto-gas-rpc/chaindata/000004.log": {
+          "bytes": 492467,
+          "sha256": "1c6206261a87c44268f37645037f24a9d556c53aa8ae44afa895c3fb2668f484"
+        },
+        "current-pair-auto-gas-rpc/chaindata/000005.log": {
+          "bytes": 552226,
+          "sha256": "7f145a1c7fcd0f796b5d13c6a80f55f0012bd8688731170bd40150483275416c"
+        },
+        "current-pair-auto-gas-rpc/chaindata/LOCK": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/MANIFEST-000001": {
+          "bytes": 39,
+          "sha256": "c1b4b7f18a5673e8305fe658bdea66ce926344c49655c6a0146820e9447d36b4"
+        },
+        "current-pair-auto-gas-rpc/chaindata/OPTIONS-000003": {
+          "bytes": 2942,
+          "sha256": "3b90763912a921c009f412d2bcb8afd9ec7dddb5e7044cc35c20a40018d11e21"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/FLOCK": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/bals.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/bals.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/bals.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/bodies.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/bodies.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/bodies.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/hashes.0000.rdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/hashes.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/hashes.ridx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/headers.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/headers.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/headers.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/receipts.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/receipts.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/chain/receipts.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/FLOCK": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/account.data.0000.cdat": {
+          "bytes": 12076,
+          "sha256": "d96e3b2796a0290ab139310bb403789b8823fcd4d3ffb76ec9b23afb73960f8c"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/account.data.cidx": {
+          "bytes": 336,
+          "sha256": "312eabab7a386125cdbf1ebb29248ac4607be3e4652e218437efaa4325a2faaf"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/account.data.meta": {
+          "bytes": 6,
+          "sha256": "fb8bcf7ca2f6875ffdfff3ae3363250e591c3e2d549b26624f6bb1f9eb1fc6fe"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/account.index.0000.cdat": {
+          "bytes": 7779,
+          "sha256": "f3335c8ce136028155e485bc02c7334d422a9837a2c7b58663bb9a21acf73a73"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/account.index.cidx": {
+          "bytes": 336,
+          "sha256": "1ee071af5a0ec2d06f92cdc3c1aa7d79d53d36df48fa2465af0f163791c9436e"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/account.index.meta": {
+          "bytes": 6,
+          "sha256": "fb8bcf7ca2f6875ffdfff3ae3363250e591c3e2d549b26624f6bb1f9eb1fc6fe"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/history.meta.0000.rdat": {
+          "bytes": 4015,
+          "sha256": "46b1c92d37f1ca5f39635b65445cb369662591ec47b3d79fb4d420e338d5117d"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/history.meta.meta": {
+          "bytes": 6,
+          "sha256": "fb8bcf7ca2f6875ffdfff3ae3363250e591c3e2d549b26624f6bb1f9eb1fc6fe"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/history.meta.ridx": {
+          "bytes": 336,
+          "sha256": "42b4030b0859b80cbf9c9c0cdea41228bbb5fb0b26226b3d02a1f8ef91a2f2f0"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/storage.data.0000.cdat": {
+          "bytes": 533,
+          "sha256": "799975103c7894b67e54de893c420ccf393779173f5c0b38acf6097c03ef0715"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/storage.data.cidx": {
+          "bytes": 336,
+          "sha256": "66a863b2f8e98cd4fe7eefbeb683484a3cd96ed8452955f76dc57614ddd54fd5"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/storage.data.meta": {
+          "bytes": 6,
+          "sha256": "fb8bcf7ca2f6875ffdfff3ae3363250e591c3e2d549b26624f6bb1f9eb1fc6fe"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/storage.index.0000.cdat": {
+          "bytes": 4859,
+          "sha256": "5df237cc3d3857d770aaf8062c41f4bae78924b0d3f06a070cf58895499428f2"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/storage.index.cidx": {
+          "bytes": 336,
+          "sha256": "c85f46d35dbb011bc159505fedda1915b293f48bc01661f60ed820ab7372a111"
+        },
+        "current-pair-auto-gas-rpc/chaindata/ancient/state/storage.index.meta": {
+          "bytes": 6,
+          "sha256": "fb8bcf7ca2f6875ffdfff3ae3363250e591c3e2d549b26624f6bb1f9eb1fc6fe"
+        },
+        "current-pair-auto-gas-rpc/chaindata/marker.format-version.000001.013": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/chaindata/marker.manifest.000001.MANIFEST-000001": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-pair-auto-gas-rpc/triedb/merkle.journal": {
+          "bytes": 813252,
+          "sha256": "245e8bcbf0b0e34b6ff9d6ebb7d5ef4a1d18cdb4846207e06f2fed241056916a"
+        }
+      },
+      "genesis_hash": "0x48d142375f197810fd040d3eab4e5b523ebdf6e31d026c3f73136b9bf387bcdc",
+      "head_hash": "0x3d9008a499bc9e2745daebae6a0b3bfc09ec63b12f7e2856413ab4d6e4616f8a",
+      "headers": 183,
+      "includes": [
+        "chaindata",
+        "triedb"
+      ],
+      "node_name": "current-pair-auto-gas-rpc"
+    },
+    "E": {
+      "bytes": 135247,
+      "excluded": [
+        "nodekey",
+        "nodes",
+        "blobpool",
+        "LOCK outside chaindata"
+      ],
+      "file_count": 39,
+      "files": {
+        "current-erc20-rpc/chaindata/000002.log": {
+          "bytes": 80439,
+          "sha256": "6767127596c386c11614bc9c13325f2d3401a16b889ab6f3510e5a749ae7365e"
+        },
+        "current-erc20-rpc/chaindata/LOCK": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/MANIFEST-000001": {
+          "bytes": 39,
+          "sha256": "c1b4b7f18a5673e8305fe658bdea66ce926344c49655c6a0146820e9447d36b4"
+        },
+        "current-erc20-rpc/chaindata/OPTIONS-000003": {
+          "bytes": 2942,
+          "sha256": "3b90763912a921c009f412d2bcb8afd9ec7dddb5e7044cc35c20a40018d11e21"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/FLOCK": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/bals.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/bals.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/bals.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/bodies.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/bodies.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/bodies.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/hashes.0000.rdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/hashes.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/hashes.ridx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/headers.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/headers.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/headers.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/receipts.0000.cdat": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/receipts.cidx": {
+          "bytes": 6,
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        "current-erc20-rpc/chaindata/ancient/chain/receipts.meta": {
+          "bytes": 4,
+          "sha256": "1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/FLOCK": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/account.data.0000.cdat": {
+          "bytes": 1,
+          "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/account.data.cidx": {
+          "bytes": 12,
+          "sha256": "3423cfe2ed780f5d09ddaf78a84acaa6d9597f593e102ec1566e7d723cb1ef9b"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/account.data.meta": {
+          "bytes": 4,
+          "sha256": "84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/account.index.0000.cdat": {
+          "bytes": 412,
+          "sha256": "fb49828456f3050cb4dbec16034642c56f0de030e181d1823577c575eca55c99"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/account.index.cidx": {
+          "bytes": 12,
+          "sha256": "707b231baa60a7d9b505e8dd6d950e32eccdeef843285ae0d36506fd07607eaf"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/account.index.meta": {
+          "bytes": 4,
+          "sha256": "84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/history.meta.0000.rdat": {
+          "bytes": 73,
+          "sha256": "cf419c9a7383d3d299e3845811eb12833afffc76ad5ee85d4aa54fd795c57f58"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/history.meta.meta": {
+          "bytes": 4,
+          "sha256": "84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/history.meta.ridx": {
+          "bytes": 12,
+          "sha256": "99a77b83520e488cd48cdb3bc25d81c0242829bc1a21f835519f5b8b4198d59a"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/storage.data.0000.cdat": {
+          "bytes": 1,
+          "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/storage.data.cidx": {
+          "bytes": 12,
+          "sha256": "3423cfe2ed780f5d09ddaf78a84acaa6d9597f593e102ec1566e7d723cb1ef9b"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/storage.data.meta": {
+          "bytes": 4,
+          "sha256": "84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/storage.index.0000.cdat": {
+          "bytes": 1,
+          "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/storage.index.cidx": {
+          "bytes": 12,
+          "sha256": "3423cfe2ed780f5d09ddaf78a84acaa6d9597f593e102ec1566e7d723cb1ef9b"
+        },
+        "current-erc20-rpc/chaindata/ancient/state/storage.index.meta": {
+          "bytes": 4,
+          "sha256": "84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda"
+        },
+        "current-erc20-rpc/chaindata/marker.format-version.000001.013": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/chaindata/marker.manifest.000001.MANIFEST-000001": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "current-erc20-rpc/triedb/merkle.journal": {
+          "bytes": 51209,
+          "sha256": "e352899b93f1b9d4afefdf81fe0fd23e35c74a1030a9987c7bfe5a44203d2483"
+        }
+      },
+      "genesis_hash": "0x48d142375f197810fd040d3eab4e5b523ebdf6e31d026c3f73136b9bf387bcdc",
+      "head_hash": "0x678c4e0881cb584244a1bc247bfe90dda1495363320bc9f8f49e1fa79b3d7a88",
+      "headers": 15,
+      "includes": [
+        "chaindata",
+        "triedb"
+      ],
+      "node_name": "current-erc20-rpc"
+    }
+  },
+  "schema": "gas-certificate-expected-state-files-v1"
+}

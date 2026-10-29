@@ -1,0 +1,117 @@
+{
+  "schema": "gas-certificate-release-assets-v1",
+  "publication": {
+    "status": "packaged_not_uploaded",
+    "download_url": null,
+    "filenames_final": true
+  },
+  "totals": {
+    "archives": 7,
+    "bytes": 182648923,
+    "raw_bytes": 2562235164,
+    "payload_files": 2079,
+    "embedded_manifests": 7
+  },
+  "count_definitions": {
+    "bytes": "Complete compressed archive bytes.",
+    "raw_bytes": "Sum of payload-file bytes, excluding the embedded MANIFEST.json, tar metadata and compression metadata.",
+    "files": "Payload-file count, excluding the one embedded MANIFEST.json in each archive."
+  },
+  "repository_results": {
+    "path": "results/",
+    "csv_files": 17,
+    "csv_bytes": 2524853,
+    "csv_rows": 23746,
+    "manifest": {
+      "path": "results/manifest.json",
+      "bytes": 10412,
+      "sha256": "ce5323556743d8f4cc65eb10587568b310a565163bf71025e002fba432c39087"
+    }
+  },
+  "archives": [
+    {
+      "name": "service-concurrent-raw.tar.gz",
+      "bytes": 78439352,
+      "sha256": "ad6dd4c4f162ba2f98da217120f66472793fa911d89200594e51f12e70b7bd6c",
+      "raw_bytes": 1036114044,
+      "files": 288,
+      "group": "main_raw",
+      "purpose": "Main four-client P/S/C HTTP response samples for ERC20 and Pair workflows.",
+      "top_level_path": "service-concurrent-raw/",
+      "payload_layout": "client-*/responses.jsonl",
+      "manifest_path": "service-concurrent-raw/MANIFEST.json"
+    },
+    {
+      "name": "replay-ablation-raw.tar.gz",
+      "bytes": 78358534,
+      "sha256": "e0a7add3da7f493836d719500bb5370510dbdb290c3b386677b3e48c24620e25",
+      "raw_bytes": 1036096755,
+      "files": 288,
+      "group": "main_raw",
+      "purpose": "Separate four-client P/V/C replay-ablation HTTP response samples.",
+      "top_level_path": "replay-ablation-raw/",
+      "payload_layout": "client-*/responses.jsonl",
+      "manifest_path": "replay-ablation-raw/MANIFEST.json"
+    },
+    {
+      "name": "service-serial-raw.tar.gz",
+      "bytes": 18956433,
+      "sha256": "6f546d1804145cd6828c039f134e9b6175da703945f269a022631af1db50a022",
+      "raw_bytes": 365693645,
+      "files": 36,
+      "group": "main_raw",
+      "purpose": "One-client P/S/C serial HTTP response samples.",
+      "top_level_path": "service-serial-raw/",
+      "payload_layout": "client-*/responses.jsonl",
+      "manifest_path": "service-serial-raw/MANIFEST.json"
+    },
+    {
+      "name": "workload-sensitivity-raw.tar.gz",
+      "bytes": 1421997,
+      "sha256": "b55dd0c0defcea32121477a708aa9c748aec3d14dcb1016f7e5ffd12734b1067",
+      "raw_bytes": 62287251,
+      "files": 1152,
+      "group": "main_raw",
+      "purpose": "All warmup and measured native blocks for 27 configurations and 5 mixtures, across 18 processes.",
+      "top_level_path": "workload-sensitivity-raw/",
+      "payload_layout": "triple-*/block-*.json",
+      "manifest_path": "workload-sensitivity-raw/MANIFEST.json"
+    },
+    {
+      "name": "ganache-comparison-raw.tar.gz",
+      "bytes": 3698031,
+      "sha256": "9d3ae24a537676b4541d80fe142223114585da7dfd5f16cc4997379d286a967d",
+      "raw_bytes": 48076999,
+      "files": 2,
+      "group": "historical_raw",
+      "purpose": "Historical same-engine Istanbul comparison: per-request estimator observations and all method blocks.",
+      "top_level_path": "ganache-comparison-raw/",
+      "payload_layout": "all-requests.jsonl; blocks.jsonl",
+      "manifest_path": "ganache-comparison-raw/MANIFEST.json"
+    },
+    {
+      "name": "workflow-state.tar.gz",
+      "bytes": 430159,
+      "sha256": "d0dc0da55265b09b5b067eb2acc6495e42bb929dcb3c6e341e1be03502db77e4",
+      "raw_bytes": 2274810,
+      "files": 80,
+      "group": "input",
+      "purpose": "Closed ERC20 and Pair Geth state databases for exact recorded service contexts.",
+      "top_level_path": "workflow-state/",
+      "payload_layout": "A/node/; E/node/",
+      "manifest_path": "workflow-state/MANIFEST.json"
+    },
+    {
+      "name": "historical116-inputs.tar.gz",
+      "bytes": 1344417,
+      "sha256": "42e75d91ef7f252541b7d61906ba87dae4b0f1036abe5ac6fbd984661ab5ce6e",
+      "raw_bytes": 11691660,
+      "files": 233,
+      "group": "input",
+      "purpose": "Complete 116-send historical corpus: 116 input JSONs, 116 result JSONs, and one event stream.",
+      "top_level_path": "historical116-inputs/",
+      "payload_layout": "transactions/*.input.json; transactions/*.result.json; events.jsonl",
+      "manifest_path": "historical116-inputs/MANIFEST.json"
+    }
+  ]
+}

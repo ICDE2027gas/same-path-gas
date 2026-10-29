@@ -1,0 +1,24 @@
+{
+  "schema": "round1832-published-compiler-pin-v1",
+  "metadata_url": "https://raw.githubusercontent.com/ethereum/solc-bin/gh-pages/bin/list.json",
+  "metadata_bytes": 1077020,
+  "metadata_sha256": "2d06392abf03682b4ec1e0e53e867fb7217ad3f15eb1977020397dcdb6c6ff2d",
+  "release_key": "0.5.16",
+  "published_build": {
+    "path": "soljson-v0.5.16+commit.9c3226ce.js",
+    "version": "0.5.16",
+    "build": "commit.9c3226ce",
+    "longVersion": "0.5.16+commit.9c3226ce",
+    "keccak256": "0x4600bf758fe009e1f50bd11f8bf0be96bd356b0f37be3ee31b55d80a5063b6a9",
+    "sha256": "0x52ad76de0634e875ac3d50e09a0057532ff53c6d851ef61204af1b0d620797b6",
+    "urls": [
+      "dweb:/ipfs/QmazV6RyW7mipfnmvSrtbpMQWYXnyLr6NpyiVQq3DRmKyP"
+    ]
+  },
+  "artifact_url": "https://raw.githubusercontent.com/ethereum/solc-bin/gh-pages/bin/soljson-v0.5.16+commit.9c3226ce.js",
+  "official_artifact_url": "https://binaries.soliditylang.org/bin/soljson-v0.5.16+commit.9c3226ce.js",
+  "compiler_downloaded": false,
+  "compiler_executed": false,
+  "node_version": "v12.22.12",
+  "node_lineage": "research/round1728-root-node12-materialization/packet-01/NODE_DOWNLOAD.json"
+}

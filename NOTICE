@@ -1,0 +1,45 @@
+Source and attribution notices
+==============================
+
+Geth
+----
+The prototype is an overlay for ethereum/go-ethereum v1.17.8, commit:
+  a579077007b98217c3e253a66e4b452ca0c32b96
+  https://github.com/ethereum/go-ethereum/tree/a579077007b98217c3e253a66e4b452ca0c32b96
+
+Original file-level notices credit the go-ethereum Authors and are retained.
+The library additions credit Research prototype contributors, 2026, with the
+SPDX declaration shown in each source file. The portable command is a new
+interface; it is distinct from the historical service measurement harness.
+
+The full GPLv3 and LGPLv3 texts in licenses/ are copied byte-for-byte from the
+same pinned upstream revision:
+
+  COPYING
+  https://raw.githubusercontent.com/ethereum/go-ethereum/a579077007b98217c3e253a66e4b452ca0c32b96/COPYING
+  SHA256 3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986
+
+  COPYING.LESSER
+  https://raw.githubusercontent.com/ethereum/go-ethereum/a579077007b98217c3e253a66e4b452ca0c32b96/COPYING.LESSER
+  SHA256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768
+
+Workload origins
+----------------
+The recorded ERC20 and Pair workflows originate from Uniswap V2 core,
+@uniswap/v2-core version 1.0.1, commit:
+  4dd59067c76dea4a0e8e4bfdda41877a6b16dedc
+  https://github.com/Uniswap/v2-core/tree/4dd59067c76dea4a0e8e4bfdda41877a6b16dedc
+
+The workload directory preserves compiler and source-origin records. The
+controlled suite includes an original ERC20 compiled artifact and records
+Solidity 0.5.16+commit.9c3226ce, optimizer runs 999999, and Istanbul compilation
+target. Compiler binaries and the complete upstream dependency trees are not
+vendored. Existing third-party terms continue to apply to their material.
+
+The benchmark guide distinguishes the Ganache v7.9.2 exactimation policy used
+for comparison from the older Ganache Core 2.10.2 stack used to generate one
+historical input population. These are separate provenance facts.
+
+Historical files without a declared license are identified as such in LICENSE.
+Their inclusion does not assign them a new license or assert ownership of
+third-party work. This notice does not replace any file-level attribution.

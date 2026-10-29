@@ -1,0 +1,2 @@
+# Preserve byte identities of patches, inputs, and measured tables on every OS.
+* -text

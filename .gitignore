@@ -1,0 +1,34 @@
+# Local builds and generated execution outputs
+/bin/
+/build/
+/dist/
+/outputs/
+/downloads/
+/states/
+/geth-src/
+/geth-gas-certificate/
+*.exe
+*.test
+*.prof
+*.pprof
+coverage.out
+
+# Release archives stay outside the source tree
+/*.tar
+/*.tar.gz
+/*.tar.xz
+/*.tgz
+/*.zip
+
+# Interpreter and editor caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# Local Go workspace configuration
+/go.work
+/go.work.sum

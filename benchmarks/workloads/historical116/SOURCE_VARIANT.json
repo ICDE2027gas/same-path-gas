@@ -1,0 +1,125 @@
+{
+  "schema": "gas-certificate-historical116-runtime-v1",
+  "upstream_commit": "a579077007b98217c3e253a66e4b452ca0c32b96",
+  "recorded_runtime_afterimages": {
+    "eth/gasestimator/gasestimator.go": {
+      "bytes": 11985,
+      "sha256": "5103ba14b6aaa5d5e09b36fae0e3f41d6538c45fd099c269ceba91124d0cab3f",
+      "git_blob": "fa0db8d7fc8fad95ecaf3e4d58dbb3b64697c7f0"
+    },
+    "eth/gasestimator/certificate.go": {
+      "bytes": 14284,
+      "sha256": "2e59ee510f9aefec98516c3930cd7d75b80b1fd25ec4fa58168ec6bd5d09ec78",
+      "git_blob": "fa4a42416efe0b47c3815db891e6cfde2e1cdde4"
+    },
+    "core/tracing/hooks.go": {
+      "bytes": 28427,
+      "sha256": "a26d052d3c53cdbd24482eeec6676f5e6d0c559beb3eed4348e7a149d94ee705",
+      "git_blob": "ebf24de0c41525799fe1134a73a9a35edd824ca7"
+    },
+    "core/vm/interpreter.go": {
+      "bytes": 9895,
+      "sha256": "294d801275ada7f91ad9662f31ed65a5095dee86f00e630bfd6d2ae5e54f826c",
+      "git_blob": "fa50370b30a09b40af82ec5a0c755dfd02b16546"
+    }
+  },
+  "portable_runtime_patch": {
+    "path": "historical-runtime.patch",
+    "bytes": 28501,
+    "sha256": "d5de6fda3ccc2b9f5cecc835d7d6714243d20c9f5e6013e55293eb988c75d6f1"
+  },
+  "recorded_source_files": 2414,
+  "recorded_paid_run": "control-paid-1750-01",
+  "portability_changes": "Importer/control manifests and paths use new binary identities and regenerated content-bound references. Runtime comments have been edited for readability. Runtime executable code matches the recorded historical version. recorded_runtime_afterimages retains the original source identities.",
+  "current_prototype_is_a_distinct_runtime": true,
+  "input_files": {
+    "bytes": 11691660,
+    "count": 233
+  },
+  "recorded_references": [
+    {
+      "bytes": 2085691,
+      "sha256": "06fb9483c01697c2b225d45157fe073db60e533cee1578563020a4d6b60095c6",
+      "path": "control-functional-1744-01/output/all-inputs.jsonl"
+    },
+    {
+      "bytes": 115616,
+      "sha256": "1b360dca63dadd8545142faf647e714d290de5976d8388ae377157359c313199",
+      "path": "control-functional-1744-01/output/protected-inputs.json"
+    },
+    {
+      "bytes": 4339,
+      "sha256": "923dbd903607499225227cbae3dafd2268713c7136778451748b1e92c93bb2fa",
+      "path": "control-functional-1744-01/output/summary.json"
+    },
+    {
+      "bytes": 209540,
+      "sha256": "d4a59083ad000c38a442ecca458c121f34dbd3712ce2dd31695bfcafd0b2a8a7",
+      "path": "control-functional-1744-01/receipt.json"
+    },
+    {
+      "bytes": 1501999,
+      "sha256": "1b1682e40a72bd01a667441d0c42a121ace4dfa3d552cf80bbcaa3ba09277d3b",
+      "path": "functional-1734-01/output/all-inputs.jsonl"
+    },
+    {
+      "bytes": 119272,
+      "sha256": "812cc08ce787a65c7c90829b533a7379a3d298c7c476a432365da6da1625085d",
+      "path": "functional-1734-01/output/summary.json"
+    },
+    {
+      "bytes": 188929,
+      "sha256": "331eded4c7707063e7a9ac46695090b8e0622f92446d7ad58114ccb63fb4ce49",
+      "path": "functional-1734-01/receipt.json"
+    },
+    {
+      "bytes": 1019089,
+      "sha256": "641fa3af446ba2cd31a096ce5940d5f9d1795d07075c4c7644657cf3d1b1e5d7",
+      "path": "node12-1724-01/output/receipt.json"
+    }
+  ],
+  "recorded_paid_files": {
+    "paid_summary": {
+      "path": "control-paid-1750-01/output/summary.json",
+      "bytes": 160155,
+      "sha256": "196883e1c3468449a5be51ea8d04f9325a1201b3f6e583e878869c01e9e4f2c6"
+    },
+    "full_requests": {
+      "path": "control-paid-1750-01/output/all-requests.jsonl",
+      "bytes": 48067772,
+      "sha256": "57f9c6cab46a143d246890b3dedd69dddc3b4d130920c633cb60f1e6b1430ee1"
+    },
+    "full_blocks": {
+      "path": "control-paid-1750-01/output/blocks.jsonl",
+      "bytes": 9227,
+      "sha256": "de47948c149eba7591d8bc32e7203f16a68d6ceed3ed88d365092045417c13ef"
+    },
+    "protected_inputs": {
+      "path": "control-paid-1750-01/output/protected-inputs.json",
+      "bytes": 118012,
+      "sha256": "4dc66eafda87939545d8ecfa459d122b138513bea5d8df296feb3a8ae4d80ba3"
+    }
+  },
+  "portable_runtime_afterimages": {
+    "eth/gasestimator/gasestimator.go": {
+      "bytes": 11985,
+      "sha256": "5103ba14b6aaa5d5e09b36fae0e3f41d6538c45fd099c269ceba91124d0cab3f",
+      "git_blob": "fa0db8d7fc8fad95ecaf3e4d58dbb3b64697c7f0"
+    },
+    "eth/gasestimator/certificate.go": {
+      "bytes": 14341,
+      "sha256": "d3693d5781b771e08d9cea636dadc72c0f456df6b142c633ad258cc2b6f19235",
+      "git_blob": "a735f679fce59c93d51810f0ec7018235d68f00b"
+    },
+    "core/tracing/hooks.go": {
+      "bytes": 28354,
+      "sha256": "e860d7230b824caa9bc7095d74f0c6e00586ec62a95559edcf7265685481dd89",
+      "git_blob": "c4ef1ef9f37f8324c3f508eb6b50fcf41a5f5ab2"
+    },
+    "core/vm/interpreter.go": {
+      "bytes": 9895,
+      "sha256": "294d801275ada7f91ad9662f31ed65a5095dee86f00e630bfd6d2ae5e54f826c",
+      "git_blob": "fa50370b30a09b40af82ec5a0c755dfd02b16546"
+    }
+  }
+}

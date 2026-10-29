@@ -1,0 +1,35 @@
+License scope
+=============
+
+This repository contains components with different file-level notices. It does
+not assign one blanket license to every source, dataset, or historical file.
+
+1. Geth library files and certificate library additions
+
+   The Geth library files under geth/core/, geth/eth/, and geth/internal/ retain
+   their original go-ethereum copyright and GNU Lesser General Public License
+   version 3 or later notices. Certificate library and native test files with
+   SPDX-License-Identifier: LGPL-3.0-or-later retain that declaration.
+
+   Full terms: licenses/COPYING.LESSER, together with licenses/COPYING.
+
+2. New standalone command
+
+   geth/cmd/gas-certificate/*.go declares GPL-3.0-or-later in each file header.
+   This includes its JSON adapter and adapter tests.
+
+   Full terms: licenses/COPYING.
+
+3. Additional benchmark and historical material
+
+   Preserve the copyright, attribution, and license declarations carried by
+   each file. An LGPL declaration in a native benchmark fixture applies to
+   that fixture. A patch retains the license scope of the files it changes.
+
+   Some preserved historical command, Python, JavaScript, Solidity, input,
+   generated artifact, and data files have no explicit license declaration in
+   their headers. This repository does not infer or grant new terms for those
+   files. The GPL/LGPL texts supplied here do not relicense third-party or
+   otherwise unspecified material.
+
+See NOTICE for source provenance and the exact origin of the license texts.

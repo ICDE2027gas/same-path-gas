@@ -1,0 +1,739 @@
+diff --git a/core/tracing/hooks.go b/core/tracing/hooks.go
+index 0fc86d4a8fff862546b011bf3e2b8c64d812d9b0..c4ef1ef9f37f8324c3f508eb6b50fcf41a5f5ab2 100644
+--- a/core/tracing/hooks.go
++++ b/core/tracing/hooks.go
+@@ -158,39 +158,42 @@
+ 	// see [OnSystemCallStartHook] and [OnSystemCallEndHook] for more information.
+ 	ExitHook = func(depth int, output []byte, gasUsed uint64, err error, reverted bool)
+ 
+-	// EnterHookV2 is the multi-dimensional successor to EnterHook: gas is the
+-	// frame's complete entry budget rather than its execution dimension alone.
++	// EnterHookV2 is the multi-dimensional successor to EnterHook. Its gas
++	// argument contains the frame's complete entry budget across both dimensions.
+ 	// Pre-Amsterdam the State field is always zero. If both hooks are set, only
+-	// V2 is invoked; register at most one.
++	// V2 is invoked. Register at most one.
+ 	EnterHookV2 = func(depth int, typ byte, from common.Address, to common.Address, input []byte, gas Gas, value *big.Int)
+ 
+ 	// ExitHookV2 is the multi-dimensional successor to ExitHook. It reports the
+-	// budget the frame leaves behind instead of the gas it used: under EIP-8037 a
++	// budget the frame leaves behind. Under EIP-8037 a
+ 	// frame can be refilled more state-gas than it charged, so its state usage can
+ 	// be negative and does not fit ExitHook's unsigned difference. Usage is the
+ 	// difference against the gas reported by the matching EnterHookV2. If both
+-	// hooks are set, only V2 is invoked; register at most one.
++	// hooks are set, only V2 is invoked. Register at most one.
+ 	ExitHookV2 = func(depth int, output []byte, gasLeft Gas, err error, reverted bool)
+ 
+ 	// OpcodeHook is invoked just prior to the execution of an opcode.
+ 	OpcodeHook = func(pc uint64, op byte, gas, cost uint64, scope OpContext, rData []byte, depth int, err error)
+ 
++	// OpcodeAttemptHook observes the entering instruction state before stack or gas checks.
++	// The callback has read-only access to the supplied scope and EVM state.
++	OpcodeAttemptHook = func(pc uint64, op byte, gas uint64, scope OpContext, rData []byte, depth int, readOnly bool)
++
+ 	// FaultHook is invoked when an error occurs during the execution of an opcode.
+ 	FaultHook = func(pc uint64, op byte, gas, cost uint64, scope OpContext, depth int, err error)
+ 
+ 	// OpcodeHookV2 is the multi-dimensional successor to OpcodeHook: gas and cost
+-	// are vectors. If both hooks are set, only V2 is invoked; register at most one.
++	// are vectors. If both hooks are set, only V2 is invoked. Register at most one.
+ 	OpcodeHookV2 = func(pc uint64, op byte, gas, cost Gas, scope OpContext, rData []byte, depth int, err error)
+ 
+ 	// FaultHookV2 is the multi-dimensional successor to FaultHook. See OpcodeHookV2
+ 	// for how the two dimensions relate.
+ 	FaultHookV2 = func(pc uint64, op byte, gas, cost Gas, scope OpContext, depth int, err error)
+ 
+-	// GasChangeHook reports changes to the execution gas. Tracers
+-	// that don't need the EIP-8037 (Amsterdam) state-access dimension can
+-	// implement only this hook; it fires unchanged across the fork. If both
+-	// this and GasChangeHookV2 are set, only V2 is invoked; implement exactly
+-	// one to avoid double-counting.
++	// GasChangeHook reports changes to execution gas. Tracers observing only
++	// execution gas can use this hook across the EIP-8037 (Amsterdam) fork.
++	// If both this hook and GasChangeHookV2 are set, only V2 is invoked.
++	// Implement exactly one to count each event once.
+ 	GasChangeHook = func(old, new uint64, reason GasChangeReason)
+ 
+ 	// GasChangeHookV2 is the multi-dimensional successor to GasChangeHook,
+@@ -199,8 +202,8 @@
+ 	// non-changing dimension is passed through unchanged in both `old` and
+ 	// `new`, so consumers always see the complete gas vector. Pre-Amsterdam
+ 	// the State field is always zero, making a V2-only tracer behave exactly
+-	// like a V1 one. If both hooks are set, only V2 is invoked; register at
+-	// most one to avoid double-counting.
++	// like a V1 one. If both hooks are set, only V2 is invoked. Register at
++	// most one to count each event once.
+ 	GasChangeHookV2 = func(old, new Gas, reason GasChangeReason)
+ 
+ 	/*
+@@ -290,6 +293,7 @@
+ 	OnExit        ExitHook
+ 	OnExitV2      ExitHookV2
+ 	OnOpcode      OpcodeHook
++	OnOpcodeAttempt OpcodeAttemptHook
+ 	OnOpcodeV2    OpcodeHookV2
+ 	OnFault       FaultHook
+ 	OnFaultV2     FaultHookV2
+@@ -331,7 +335,7 @@
+ 
+ // EmitGasChange dispatches a gas change event to the registered hooks. If the
+ // multi-dimensional OnGasChangeV2 hook is set it is invoked with the full Gas
+-// vectors; otherwise the single-dimensional OnGasChange hook is invoked with
++// vectors. Otherwise the single-dimensional OnGasChange hook is invoked with
+ // the execution-gas dimension only. The call is a no-op when the receiver is
+ // nil, when neither hook is registered, or when the reason is GasChangeIgnored.
+ //
+@@ -366,7 +370,7 @@
+ }
+ 
+ // EmitExit dispatches a frame-exit event. The multi-dimensional hook receives the
+-// leftover budget; the single-dimensional one keeps receiving the execution gas
++// leftover budget. The single-dimensional one receives the execution gas
+ // the frame consumed, derived from the entry budget.
+ func (h *Hooks) EmitExit(depth int, output []byte, gas, gasLeft Gas, err error, reverted bool) {
+ 	if h == nil {
+@@ -496,7 +500,7 @@
+ // metered independently from the Amsterdam fork onwards.
+ //
+ // Before Amsterdam, gas metering is single-dimensional and only the Execution
+-// field is meaningful; State is always zero. The struct is shaped so that
++// field is meaningful. State is always zero. The struct is shaped so that
+ // pre-Amsterdam call sites can populate it as Gas{Execution: g} without loss
+ // of fidelity relative to the legacy single-uint64 hook.
+ type Gas struct {
+@@ -535,7 +539,7 @@
+ 
+ 	// GasChangeTxLeftOverReturned is the gas left at the end of the transaction,
+ 	// returned to the account (its Wei value refunded to the caller). Always a
+-	// decrease towards 0; not emitted when no gas is left. At most one per tx.
++	// decrease to 0, emitted only for positive leftover gas. At most one per tx.
+ 	GasChangeTxLeftOverReturned GasChangeReason = 4
+ 
+ 	// GasChangeCallInitialBalance is the initial balance of a call, equal to its
+@@ -543,14 +547,14 @@
+ 	GasChangeCallInitialBalance GasChangeReason = 5
+ 
+ 	// GasChangeCallLeftOverReturned is recorded on the callee: its leftover leaving
+-	// it for the caller, always down to 0. Emitted before the callee's OnExit; not
+-	// emitted when no gas is left. The caller books the same transfer as
++	// it for the caller, always down to 0. Emitted before the callee's OnExit
++	// only for positive leftover gas. The caller books the same transfer as
+ 	// GasChangeCallLeftOverRefunded.
+ 	GasChangeCallLeftOverReturned GasChangeReason = 6
+ 
+ 	// GasChangeCallLeftOverRefunded is recorded on the caller: the callee's
+-	// leftover arriving, always an increase. Emitted after the callee's OnExit;
+-	// not emitted when nothing is refunded. For the top-level frame the caller is
++	// leftover arriving, always an increase. Emitted after the callee's OnExit
++	// only for a positive returned amount. For the top-level frame the caller is
+ 	// the transaction itself.
+ 	GasChangeCallLeftOverRefunded GasChangeReason = 7
+ 
+@@ -563,7 +567,7 @@
+ 	// GasChangeCallCodeStorage is the gas charged for code storage.
+ 	GasChangeCallCodeStorage GasChangeReason = 10
+ 
+-	// GasChangeCallOpCode is the gas charged for an executed opcode; the exact
++	// GasChangeCallOpCode is the gas charged for an executed opcode. The exact
+ 	// opcode is available via OnOpcode.
+ 	GasChangeCallOpCode GasChangeReason = 11
+ 
+@@ -627,7 +631,7 @@
+ 	// GasChangeStateGasRepaid is state-gas moved from a frame's reservoir back to
+ 	// its gas_left when a child merges, repaying execution gas the frame had lent
+ 	// to state charges that the child then refilled (EIP-8037). Emitted right
+-	// after GasChangeCallLeftOverRefunded; not emitted when nothing is owed.
++	// after GasChangeCallLeftOverRefunded only when a positive amount is owed.
+ 	GasChangeStateGasRepaid GasChangeReason = 25
+ 
+ 	// GasChangeIgnored indicates the gas change should be ignored, as it is
+diff --git a/core/vm/interpreter.go b/core/vm/interpreter.go
+index c06cde7d4cae14fd0a07d3b498aa164920d9997d..fa50370b30a09b40af82ec5a0c755dfd02b16546 100644
+--- a/core/vm/interpreter.go
++++ b/core/vm/interpreter.go
+@@ -187,6 +187,9 @@
+ 		// Get the operation from the jump table and validate the stack to ensure there are
+ 		// enough stack items available to perform the operation.
+ 		op = contract.GetOp(pc)
++		if debug && evm.Config.Tracer.OnOpcodeAttempt != nil {
++			evm.Config.Tracer.OnOpcodeAttempt(pc, byte(op), contract.Gas.ExecutionGas, callContext, evm.returnData, evm.depth, evm.readOnly)
++		}
+ 		operation := jumpTable[op]
+ 		execCost, stateCost = operation.constantGas, 0 // For tracing
+ 		// Validate stack
+diff --git a/eth/api_backend.go b/eth/api_backend.go
+index fc8e4e5989d40d22dc98c2c4253197ac77062410..e4b4a58d316eb30c5511a450d1ed129b533168e9 100644
+--- a/eth/api_backend.go
++++ b/eth/api_backend.go
+@@ -50,6 +50,7 @@
+ // EthAPIBackend implements ethapi.Backend and tracers.Backend for full nodes
+ type EthAPIBackend struct {
+ 	extRPCEnabled       bool
++	estimateGasCertificate bool // copied once at backend construction
+ 	allowUnprotectedTxs bool
+ 	eth                 *Ethereum
+ 	gpo                 *gasprice.Oracle
+@@ -58,6 +59,11 @@
+ // ChainConfig returns the active chain configuration.
+ func (b *EthAPIBackend) ChainConfig() *params.ChainConfig {
+ 	return b.eth.blockchain.Config()
++}
++
++// EstimateGasCertificateEnabled reports this backend's construction-time option.
++func (b *EthAPIBackend) EstimateGasCertificateEnabled() bool {
++	return b.estimateGasCertificate
+ }
+ 
+ func (b *EthAPIBackend) CurrentBlock() *types.Header {
+diff --git a/eth/backend.go b/eth/backend.go
+index 25c541ec961fc5fa86acbde99931521e9d15ea55..ed439b3b2150f4c3a767100f9e869040ac94b64a 100644
+--- a/eth/backend.go
++++ b/eth/backend.go
+@@ -372,7 +372,12 @@
+ 	eth.miner.SetExtra(makeExtraData(config.Miner.ExtraData))
+ 	eth.miner.SetPrioAddresses(config.TxPool.Locals)
+ 
+-	eth.APIBackend = &EthAPIBackend{stack.Config().ExtRPCEnabled(), stack.Config().AllowUnprotectedTxs, eth, nil}
++	eth.APIBackend = &EthAPIBackend{
++		extRPCEnabled: stack.Config().ExtRPCEnabled(),
++		allowUnprotectedTxs: stack.Config().AllowUnprotectedTxs,
++		eth: eth,
++		estimateGasCertificate: config.EstimateGasCertificate,
++	}
+ 	if eth.APIBackend.allowUnprotectedTxs {
+ 		log.Info("Unprotected transactions allowed")
+ 	}
+@@ -386,7 +391,7 @@
+ 	stack.RegisterProtocols(eth.Protocols())
+ 	stack.RegisterLifecycle(eth)
+ 
+-	// Successful startup; push a marker and check previous unclean shutdowns.
++	// After successful startup, push a marker and check previous unclean shutdowns.
+ 	eth.shutdownTracker.MarkStartup()
+ 
+ 	return eth, nil
+diff --git a/eth/ethconfig/config.go b/eth/ethconfig/config.go
+index ab3143b8b08ab78f17361e972a7e2b7cc72cd157..12974b40f37645f1d08874f6813246c6de12102b 100644
+--- a/eth/ethconfig/config.go
++++ b/eth/ethconfig/config.go
+@@ -78,7 +78,7 @@
+ 	EngineMaxReorgDepth:     32,
+ 	TxSyncDefaultTimeout:    20 * time.Second,
+ 	TxSyncMaxTimeout:        1 * time.Minute,
+-	SlowBlockThreshold:      -1, // Disabled by default; set via --debug.logslowblock flag
++	SlowBlockThreshold:      -1, // Disabled by default. Enable with --debug.logslowblock.
+ 	RangeLimit:              0,
+ }
+ 
+@@ -191,6 +191,10 @@
+ 	// Enables VM tracing
+ 	VMTrace           string
+ 	VMTraceJsonConfig string
++
++	// EstimateGasCertificate enables the optional per-request gas certificate.
++	// The backend fixes this option at construction and defaults to stock estimation.
++	EstimateGasCertificate bool `toml:"-"`
+ 
+ 	// RPCGasCap is the global gas cap for eth-call variants.
+ 	RPCGasCap uint64
+diff --git a/eth/gasestimator/certificate.go b/eth/gasestimator/certificate.go
+new file mode 100644
+index 0000000000000000000000000000000000000000..fb104bac4fe70a949b31ef44584b59709a4830d5
+--- /dev/null
++++ b/eth/gasestimator/certificate.go
+@@ -0,0 +1,374 @@
++// Copyright 2026 Research prototype contributors
++// SPDX-License-Identifier: LGPL-3.0-or-later
++
++package gasestimator
++
++import (
++	"math"
++	"math/big"
++
++	"github.com/ethereum/go-ethereum/common"
++	"github.com/ethereum/go-ethereum/core"
++	"github.com/ethereum/go-ethereum/core/tracing"
++	"github.com/ethereum/go-ethereum/core/vm"
++	"github.com/ethereum/go-ethereum/params"
++	"github.com/holiman/uint256"
++)
++
++// CertificateReport describes the optional check of the high-limit execution
++// within one Estimate invocation. Its validity is bound to that invocation's
++// request, state, and EVM context. Rejection strings use fixed checker categories.
++type CertificateReport struct {
++	SourcePin string `json:"source_pin"`
++	Status string `json:"status"`
++	Fork string `json:"fork"`
++	High uint64 `json:"high"`
++	Intrinsic uint64 `json:"intrinsic"`
++	// Floor is the calldata floor under Osaka rules and zero on the earlier supported forks.
++	Floor uint64 `json:"floor,omitempty"`
++	RootEntry uint64 `json:"root_entry"`
++	Depletion uint64 `json:"depletion"`
++	Minimum uint64 `json:"minimum"`
++	Candidate uint64 `json:"candidate"`
++	UsedGas uint64 `json:"used_gas"`
++	MaxUsedGas uint64 `json:"max_used_gas"`
++	FirstRunExecuted bool `json:"first_run_executed"`
++	Certified bool `json:"certified"`
++	ZeroEffectiveGasPrice bool `json:"zero_effective_gas_price"`
++	EffectiveGasPrice string `json:"effective_gas_price"`
++	Origin common.Address `json:"origin"`
++	SenderCodeEmpty bool `json:"sender_code_empty"`
++	OriginalSenderNonce uint64 `json:"original_sender_nonce"`
++	FeeRule string `json:"fee_rule"`
++	ReasonCounts map[string]uint64 `json:"reason_counts"`
++	// ReasonCounts records the first failed check, where semantic checking stops.
++	// Raw event counters below continue through the remaining execution.
++	FirstReasonOnly bool `json:"first_reason_only"`
++	OpcodeEvents uint64 `json:"opcode_events"`
++	OpcodeErrorEvents uint64 `json:"opcode_error_events"`
++	EnterEvents uint64 `json:"enter_events"`
++	ExitEvents uint64 `json:"exit_events"`
++	FailedFrameEvents uint64 `json:"failed_frame_events"`
++	FaultEvents uint64 `json:"fault_events"`
++	CheckedOpcodes uint64 `json:"checked_opcodes"`
++	CompletedFrames uint64 `json:"completed_frames"`
++	CallOpcodes uint64 `json:"call_opcodes"`
++	CompletedCalls uint64 `json:"completed_calls"`
++	GasCapCalls uint64 `json:"gas_cap_calls"`
++	GasOpcodes uint64 `json:"gas_opcodes"`
++	Sstores uint64 `json:"sstores"`
++	WideFixedGasRequests uint64 `json:"wide_fixed_gas_requests"`
++	MaxFrameDepth int `json:"max_frame_depth"`
++}
++
++// TrialReport records the gas limit and outcome of one execution attempt for
++// optional functional diagnostics. Elapsed-time measurement and installation
++// of the diagnostic callback are controlled separately by the caller.
++type TrialReport struct {
++	GasLimit uint64 `json:"gas_limit"`
++	Failed bool `json:"failed"`
++	Outcome string `json:"outcome"`
++}
++
++func initialCertificateReport() CertificateReport {
++	return CertificateReport{
++		SourcePin: "a579077007b98217c3e253a66e4b452ca0c32b96",
++		Status: "not_reached", FirstReasonOnly: true,
++		ReasonCounts: make(map[string]uint64),
++	}
++}
++
++type certificateGas struct { pc, value uint64 }
++type certificateCall struct {
++	kind byte
++	address common.Address
++	value uint256.Int // copied before the VM mutates its stack storage
++	request uint64
++	wide bool
++	capPattern bool
++	gas, total, stipend uint64
++	entered bool
++	intrinsic uint64
++}
++type certificateFrame struct {
++	depth int
++	entry, used, need, opcodes uint64
++	gas *certificateGas
++	call *certificateCall
++}
++type certificateObserver struct {
++	report CertificateReport
++	reason string
++	origin common.Address
++	bound, rootSeen, rootDone bool
++	frames []*certificateFrame
++}
++
++func newCertificateObserver() *certificateObserver {
++	return &certificateObserver{report: initialCertificateReport()}
++}
++
++func (o *certificateObserver) reject(reason string) {
++	if o.reason == "" {
++		o.reason = reason
++		o.report.ReasonCounts[reason]++
++		o.frames = nil
++	}
++}
++
++// bind checks eligibility against the EVM context and state created by run.
++// It returns hooks after all preflight checks pass and nil on fallback.
++func (o *certificateObserver) bind(call *core.Message, evm *vm.EVM) *tracing.Hooks {
++	o.bound = true
++	o.report.High = call.GasLimit
++	o.report.FirstRunExecuted = true
++	if !o.bindFee(call, evm.StateDB.GetCode(call.From), evm.StateDB.GetNonce(call.From)) { return nil }
++	if call.To == nil { o.reject("top_creation"); return nil }
++	if call.SetCodeAuthorizations != nil { o.reject("authorization_list"); return nil }
++	r := evm.ChainConfig().Rules(evm.Context.BlockNumber, evm.Context.Random != nil, evm.Context.Time)
++	if len(evm.Config.ExtraEips) != 0 {
++		o.reject("unsupported_fork_or_extra_eip"); return nil
++	}
++	fork, reason := certificateFork(r)
++	if reason != "" { o.reject(reason); return nil }
++	o.report.Fork = fork
++	if fork == "osaka" && (call.BlobHashes != nil || call.BlobGasFeeCap != nil) {
++		o.reject("blob_fields"); return nil
++	}
++	value := call.Value
++	if value == nil { value = new(uint256.Int) }
++	intrinsic, err := core.IntrinsicGas(call.Data, call.AccessList, call.SetCodeAuthorizations, call.From, call.To, value, r)
++	if err != nil || call.GasLimit < intrinsic { o.reject("intrinsic_invalid"); return nil }
++	o.report.Intrinsic = intrinsic
++	if fork == "osaka" {
++		floor, err := core.FloorDataGas(r, call.From, call.To, value, call.Data, call.AccessList)
++		if err != nil || call.GasLimit < floor { o.reject("floor_invalid"); return nil }
++		o.report.Floor = floor
++	}
++	return &tracing.Hooks{
++		OnEnterV2: o.enter, OnExitV2: o.exit,
++		OnOpcodeV2: o.opcode, OnFaultV2: o.fault,
++	}
++}
++
++func certificateFork(r params.Rules) (string, string) {
++	if r.IsBogota || r.IsAmsterdam || r.IsUBT || r.IsEIP4762 {
++		return "", "unsupported_fork_or_extra_eip"
++	}
++	if !(r.IsHomestead && r.IsEIP150 && r.IsEIP158 && r.IsByzantium && r.IsConstantinople && r.IsIstanbul) {
++		return "", "unsupported_predecessor_rules"
++	}
++	if r.IsOsaka && r.IsPrague && r.IsCancun && r.IsShanghai && r.IsMerge && r.IsLondon && r.IsBerlin {
++		return "osaka", ""
++	}
++	if r.IsOsaka || r.IsPrague || r.IsCancun { return "", "unsupported_fork_or_extra_eip" }
++	switch {
++	case r.IsShanghai && r.IsMerge && r.IsLondon && r.IsBerlin:
++		return "shanghai", ""
++	case !r.IsShanghai && !r.IsMerge && !r.IsLondon && !r.IsBerlin:
++		return "istanbul", ""
++	default:
++		return "", "unsupported_fork"
++	}
++}
++
++// bindFee checks sender eligibility and is shared with focused tests. bind
++// passes the sender's code and nonce from StateDB before ApplyMessage.
++func (o *certificateObserver) bindFee(call *core.Message, senderCode []byte, senderNonce uint64) bool {
++	if call.GasPrice == nil {
++		o.reject("missing_effective_gas_price")
++		return false
++	}
++	o.origin, o.report.Origin = call.From, call.From
++	o.report.EffectiveGasPrice = call.GasPrice.ToBig().String()
++	o.report.ZeroEffectiveGasPrice = call.GasPrice.IsZero()
++	o.report.FeeRule = "sender_balance_offset_1713"
++	o.report.OriginalSenderNonce = senderNonce
++	if senderNonce == math.MaxUint64 { o.reject("sender_nonce_overflow"); return false }
++	// Sender-code eligibility uses the original per-run state copy before
++	// ApplyMessage buys gas, independently of the skipEOACheck message flag.
++	if len(senderCode) != 0 { o.reject("sender_code"); return false }
++	o.report.SenderCodeEmpty = true
++	return true
++}
++
++func addCertificate(a, b uint64) (uint64, bool) {
++	if a > math.MaxUint64-b { return 0, false }
++	return a+b, true
++}
++
++func phiCertificate(k uint64) (uint64, bool) {
++	if k == 0 { return 0, true }
++	return addCertificate(k, (k-1)/63)
++}
++
++func isCertificateCall(op byte) bool {
++	return op == byte(vm.CALL) || op == byte(vm.CALLCODE) || op == byte(vm.DELEGATECALL) || op == byte(vm.STATICCALL)
++}
++
++func (o *certificateObserver) enter(depth int, kind byte, from, to common.Address, input []byte, gas tracing.Gas, value *big.Int) {
++	o.report.EnterEvents++
++	if o.reason != "" { return }
++	if gas.State != 0 { o.reject("state_gas"); return }
++	if depth < 0 || depth > int(params.CallCreateDepth) { o.reject("frame_depth"); return }
++	if len(o.frames) == 0 {
++		if o.rootSeen || depth != 0 || kind != byte(vm.CALL) { o.reject("root_frame_shape"); return }
++		if gas.Execution != o.report.High-o.report.Intrinsic { o.reject("root_entry_mismatch"); return }
++		o.rootSeen = true
++		o.report.RootEntry = gas.Execution
++	} else {
++		parent := o.frames[len(o.frames)-1]
++		p := parent.call
++		if depth != parent.depth+1 || p == nil || p.entered || p.kind != kind || p.address != to {
++			o.reject("child_entry_shape"); return
++		}
++		if (kind == byte(vm.CALL) || kind == byte(vm.CALLCODE)) && (value == nil || value.Cmp(p.value.ToBig()) != 0) {
++			o.reject("child_value_mismatch"); return
++		}
++		if gas.Execution < p.stipend { o.reject("stipend_underflow"); return }
++		forward := gas.Execution-p.stipend
++		if p.total < forward { o.reject("forward_exceeds_cost"); return }
++		p.intrinsic = p.total-forward
++		if p.gas < p.intrinsic { o.reject("call_cost_exceeds_gas"); return }
++		available := p.gas-p.intrinsic
++		cap := available-available/64
++		expected := cap
++		if !p.wide && p.request < expected { expected = p.request }
++		if forward != expected { o.reject("forward_mismatch"); return }
++		p.entered = true
++	}
++	o.frames = append(o.frames, &certificateFrame{depth: depth, entry: gas.Execution})
++	if depth > o.report.MaxFrameDepth { o.report.MaxFrameDepth = depth }
++}
++
++func (o *certificateObserver) opcode(pc uint64, op byte, gas, cost tracing.Gas, scope tracing.OpContext, rData []byte, depth int, err error) {
++	o.report.OpcodeEvents++
++	if err != nil { o.report.OpcodeErrorEvents++ }
++	if o.reason != "" { return }
++	if err != nil { o.reject("opcode_error"); return }
++	if gas.State != 0 || cost.State != 0 { o.reject("state_gas"); return }
++	if scope == nil { o.reject("missing_scope"); return }
++	if scope.Address() == o.origin { o.reject("origin_execution_scope"); return }
++	if op == byte(vm.BALANCE) {
++		stack := scope.StackData()
++		if len(stack) == 0 { o.reject("balance_stack_shape"); return }
++		if common.Address(stack[len(stack)-1].Bytes20()) == o.origin { o.reject("origin_balance_read"); return }
++	}
++	if len(o.frames) == 0 { o.reject("opcode_without_frame"); return }
++	f := o.frames[len(o.frames)-1]
++	if depth != f.depth+1 || f.call != nil { o.reject("opcode_frame_shape"); return }
++	if f.used > f.entry || gas.Execution != f.entry-f.used || cost.Execution > gas.Execution {
++		o.reject("opcode_budget_mismatch"); return
++	}
++	if f.gas != nil {
++		if !isCertificateCall(op) || f.gas.pc == math.MaxUint64 || pc != f.gas.pc+1 {
++			o.reject("gas_not_immediate_call"); return
++		}
++	}
++	if op == byte(vm.CREATE) || op == byte(vm.CREATE2) || op == byte(vm.SELFDESTRUCT) {
++		o.reject("creation_or_selfdestruct"); return
++	}
++	f.opcodes++
++	o.report.CheckedOpcodes++
++	if isCertificateCall(op) {
++		o.report.CallOpcodes++
++		stack := scope.StackData()
++		n := len(stack)
++		want := 6
++		if op == byte(vm.CALL) || op == byte(vm.CALLCODE) { want = 7 }
++		if n < want { o.reject("call_stack_shape"); return }
++		request := stack[n-1]
++		p := &certificateCall{kind: op, address: common.Address(stack[n-2].Bytes20()), gas: gas.Execution, total: cost.Execution, request: request.Uint64(), wide: !request.IsUint64()}
++		if p.wide { o.report.WideFixedGasRequests++ }
++		if op == byte(vm.CALL) || op == byte(vm.CALLCODE) {
++			p.value = stack[n-3]
++			if !p.value.IsZero() { p.stipend = params.CallStipend }
++		}
++		if f.gas != nil && (p.wide || p.request != f.gas.value) {
++			o.reject("gas_word_mismatch"); return
++		}
++		p.capPattern = f.gas != nil
++		if p.capPattern { o.report.GasCapCalls++ }
++		f.gas = nil
++		f.call = p
++		return
++	}
++	required := cost.Execution
++	if op == byte(vm.SSTORE) {
++		o.report.Sstores++
++		required = max(required, params.SstoreSentryGasEIP2200+1)
++	}
++	need, ok := addCertificate(f.used, required)
++	if !ok { o.reject("arithmetic_overflow"); return }
++	used, ok := addCertificate(f.used, cost.Execution)
++	if !ok { o.reject("arithmetic_overflow"); return }
++	f.need, f.used = max(f.need, need), used
++	if op == byte(vm.GAS) {
++		o.report.GasOpcodes++
++		f.gas = &certificateGas{pc: pc, value: gas.Execution-cost.Execution}
++	}
++}
++
++func (o *certificateObserver) fault(pc uint64, op byte, gas, cost tracing.Gas, scope tracing.OpContext, depth int, err error) {
++	o.report.FaultEvents++
++	o.reject("opcode_fault")
++}
++
++func (o *certificateObserver) exit(depth int, output []byte, left tracing.Gas, err error, reverted bool) {
++	o.report.ExitEvents++
++	if err != nil || reverted { o.report.FailedFrameEvents++ }
++	if o.reason != "" { return }
++	if err != nil || reverted { o.reject("failed_frame"); return }
++	if left.State != 0 { o.reject("state_gas"); return }
++	if len(o.frames) == 0 { o.reject("exit_without_frame"); return }
++	f := o.frames[len(o.frames)-1]
++	if f.depth != depth || f.call != nil || f.gas != nil { o.reject("incomplete_frame"); return }
++	if f.opcodes == 0 { o.reject("opaque_or_empty_frame"); return }
++	if left.Execution > f.entry || f.entry-left.Execution != f.used { o.reject("frame_depletion_mismatch"); return }
++	f.need = max(f.need, f.used)
++	if f.entry < f.need { o.reject("observed_requirement_mismatch"); return }
++	o.report.CompletedFrames++
++	o.frames = o.frames[:len(o.frames)-1]
++	if len(o.frames) == 0 {
++		o.rootDone = true
++		o.report.Depletion, o.report.Minimum = f.used, f.need
++		return
++	}
++	parent := o.frames[len(o.frames)-1]
++	p := parent.call
++	if p == nil || !p.entered { o.reject("child_exit_shape"); return }
++	k := uint64(0)
++	if f.need > p.stipend { k = f.need-p.stipend }
++	if !p.capPattern && !p.wide && p.request < k { o.reject("fixed_request_below_requirement"); return }
++	phi, ok := phiCertificate(k)
++	if !ok { o.reject("arithmetic_overflow"); return }
++	required, ok := addCertificate(p.intrinsic, phi)
++	if !ok { o.reject("arithmetic_overflow"); return }
++	depletion, ok := addCertificate(p.intrinsic, f.used)
++	if !ok || depletion < p.stipend { o.reject("call_depletion_arithmetic"); return }
++	depletion -= p.stipend
++	need, ok := addCertificate(parent.used, required)
++	if !ok { o.reject("arithmetic_overflow"); return }
++	used, ok := addCertificate(parent.used, depletion)
++	if !ok { o.reject("arithmetic_overflow"); return }
++	parent.need, parent.used = max(parent.need, need, used), used
++	parent.call = nil
++	o.report.CompletedCalls++
++}
++
++func (o *certificateObserver) finish(result *core.ExecutionResult, executionErr error, failed bool) CertificateReport {
++	if result != nil { o.report.UsedGas, o.report.MaxUsedGas = result.UsedGas, result.MaxUsedGas }
++	if executionErr != nil || failed { o.reject("first_run_failed") }
++	if !o.bound || !o.rootDone || len(o.frames) != 0 { o.reject("incomplete_observation") }
++	if o.reason == "" {
++		candidate, ok := addCertificate(o.report.Intrinsic, o.report.Minimum)
++		candidate = max(candidate, o.report.Floor)
++		if !ok || candidate > o.report.High { o.reject("candidate_out_of_bounds") } else {
++			o.report.Candidate, o.report.Certified = candidate, true
++		}
++	}
++	o.report.Status = "unsupported"
++	if executionErr != nil || failed { o.report.Status = "first_run_failed" }
++	if o.report.Certified { o.report.Status = "certified" }
++	return o.report
++}
+diff --git a/eth/gasestimator/gasestimator.go b/eth/gasestimator/gasestimator.go
+index 80a515e2e40c1d23e5b8346f673bba007df6597d..fa0db8d7fc8fad95ecaf3e4d58dbb3b64697c7f0 100644
+--- a/eth/gasestimator/gasestimator.go
++++ b/eth/gasestimator/gasestimator.go
+@@ -45,12 +45,19 @@
+ 	BlobBaseFee *big.Int // BlobBaseFee optionally overrides the blob base fee in the execution context.
+ 
+ 	ErrorRatio float64 // Allowed overestimation ratio for faster estimation termination
++
++	// Optional per-invocation certificate output. Nil preserves stock estimation.
++	Certificate *CertificateReport
++	// Optional functional trial counter. Keep nil in phases excluding its cost.
++	OnTrial func(TrialReport)
++	initialCertificate *certificateObserver // installed only in the first-high options copy
+ }
+ 
+ // Estimate returns the lowest possible gas limit that allows the transaction to
+ // run successfully with the provided context options. It returns an error if the
+ // transaction would always revert, or if there are unexpected failures.
+ func Estimate(ctx context.Context, call *core.Message, opts *Options, gasCap uint64) (uint64, []byte, error) {
++	if opts.Certificate != nil { *opts.Certificate = initialCertificateReport() }
+ 	// Binary search the gas limit, as it may need to be higher than the amount used
+ 	var (
+ 		lo uint64 // lowest-known gas limit where tx execution fails
+@@ -126,13 +133,29 @@
+ 		if call.To != nil && opts.State.GetCodeSize(*call.To) == 0 {
+ 			failed, result, err := execute(ctx, call, opts, params.TxGas)
+ 			if !failed && err == nil {
++				if opts.Certificate != nil {
++					opts.Certificate.Status = "stock_transfer_fastpath"
++					opts.Certificate.UsedGas = result.UsedGas
++				}
+ 				return result.UsedGas, nil, nil
+ 			}
+ 		}
+ 	}
+ 	// We first execute the transaction at the highest allowable gas limit, since if this fails we
+ 	// can return error immediately.
+-	failed, result, err := execute(ctx, call, opts, hi)
++	firstOpts := opts
++	var observer *certificateObserver
++	if opts.Certificate != nil {
++		observer = newCertificateObserver()
++		copy := *opts
++		copy.initialCertificate = observer
++		firstOpts = &copy
++	}
++	failed, result, err := execute(ctx, call, firstOpts, hi)
++	if observer != nil {
++		if ctx.Err() != nil { observer.reject("context_canceled") }
++		*opts.Certificate = observer.finish(result, err, failed)
++	}
+ 	if err != nil {
+ 		return 0, nil, err
+ 	}
+@@ -141,6 +164,9 @@
+ 			return 0, result.Revert(), result.Err
+ 		}
+ 		return 0, nil, fmt.Errorf("gas required exceeds allowance (%d)", hi)
++	}
++	if opts.Certificate != nil && opts.Certificate.Certified {
++		return opts.Certificate.Candidate, nil, nil
+ 	}
+ 	// For almost any transaction, the gas consumed by the unconstrained execution
+ 	// above lower-bounds the gas limit required for it to succeed. One exception
+@@ -205,14 +231,26 @@
+ // returns true if the transaction fails for a reason that might be related to
+ // not enough gas. A non-nil error means execution failed due to reasons unrelated
+ // to the gas limit.
+-func execute(ctx context.Context, call *core.Message, opts *Options, gasLimit uint64) (bool, *core.ExecutionResult, error) {
++func execute(ctx context.Context, call *core.Message, opts *Options, gasLimit uint64) (failed bool, result *core.ExecutionResult, err error) {
++	if opts.OnTrial != nil {
++		defer func() {
++			outcome := "success"
++			switch {
++			case err != nil: outcome = "execution_error"
++			case failed && result == nil: outcome = "gas_limit_precheck"
++			case failed && errors.Is(result.Err, vm.ErrOutOfGas): outcome = "out_of_gas"
++			case failed: outcome = "execution_failed"
++			}
++			opts.OnTrial(TrialReport{GasLimit: gasLimit, Failed: failed, Outcome: outcome})
++		}()
++	}
+ 	// Configure the call for this specific execution (and revert the change after)
+ 	defer func(gas uint64) { call.GasLimit = gas }(call.GasLimit)
+ 	call.GasLimit = gasLimit
+ 
+ 	// Execute the call and separate execution faults caused by a lack of gas or
+ 	// other non-fixable conditions
+-	result, err := run(ctx, call, opts)
++	result, err = run(ctx, call, opts)
+ 	if err != nil {
+ 		if errors.Is(err, core.ErrIntrinsicGas) {
+ 			return true, nil, nil // Special case, raise gas limit
+@@ -246,6 +284,9 @@
+ 	}
+ 	evm := vm.NewEVM(evmContext, dirtyState, opts.Config, vm.Config{NoBaseFee: true})
+ 	defer evm.Release()
++	if opts.initialCertificate != nil {
++		evm.Config.Tracer = opts.initialCertificate.bind(call, evm)
++	}
+ 
+ 	// Monitor the outer context and interrupt the EVM upon cancellation. To avoid
+ 	// a dangling goroutine until the outer estimation finishes, create an internal
+diff --git a/internal/ethapi/api.go b/internal/ethapi/api.go
+index eeafd9c9b6698b41d160d39cda73ca2baff44303..bf9d840c4dbc9533fa34b26687d0bde115cea167 100644
+--- a/internal/ethapi/api.go
++++ b/internal/ethapi/api.go
+@@ -950,6 +950,11 @@
+ 		State:       state,
+ 		BlobBaseFee: blobBaseFee,
+ 		ErrorRatio:  estimateGasErrorRatio,
++	}
++	// The optional backend capability enables a report owned by each request.
++	// Backends using the shared Backend interface alone keep stock estimation.
++	if feature, ok := b.(interface{ EstimateGasCertificateEnabled() bool }); ok && feature.EstimateGasCertificateEnabled() {
++		opts.Certificate = new(gasestimator.CertificateReport)
+ 	}
+ 	// Set any required transaction default, but make sure the gas cap itself is not messed with
+ 	// if it was not specified in the original argument list.

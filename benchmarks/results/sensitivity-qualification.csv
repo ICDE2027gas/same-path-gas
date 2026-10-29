@@ -1,0 +1,82 @@
+position,configuration,method,admitted,first_reject_event,returned_gas,error,attempts,ordered_trial_budgets,ordered_trial_outcomes,high,candidate,checked_opcodes,raw_opcode_events,maximum_observed_call_depth,completed_calls
+0,N1-D0-K0,C,true,,29933,,1,8000000,success,8000000,29933,255,255,0,0
+0,N1-D0-K0,S,true,,30283,,5,8000000|32744|31338|30635|30283,success|success|success|success|success,8000000,29933,255,255,0,0
+0,N1-D0-K0,V,true,,29933,,2,8000000|29933,success|success,8000000,29933,255,255,0,0
+1,N1-D0-K1,C,false,[object Object],90774,,4,8000000|93597|91715|90774,success|success|success|success,8000000,0,486,759,2,0
+1,N1-D0-K1,S,false,[object Object],90774,,4,8000000|93597|91715|90774,success|success|success|success,8000000,0,486,759,2,0
+1,N1-D0-K1,V,false,[object Object],90774,,4,8000000|93597|91715|90774,success|success|success|success,8000000,0,486,759,2,0
+2,N1-D0-K2,C,false,[object Object],90786,,4,8000000|93609|91727|90786,success|success|success|success,8000000,0,611,759,2,0
+2,N1-D0-K2,S,false,[object Object],90786,,4,8000000|93609|91727|90786,success|success|success|success,8000000,0,611,759,2,0
+2,N1-D0-K2,V,false,[object Object],90786,,4,8000000|93609|91727|90786,success|success|success|success,8000000,0,611,759,2,0
+3,N1-D1-K0,C,true,,35386,,1,8000000,success,8000000,35386,458,458,1,1
+3,N1-D1-K0,S,true,,35747,,5,8000000|38284|36834|36109|35747,success|success|success|success|success,8000000,35386,458,458,1,1
+3,N1-D1-K0,V,true,,35386,,2,8000000|35386,success|success,8000000,35386,458,458,1,1
+4,N1-D1-K1,C,false,[object Object],96249,,4,8000000|99137|97212|96249,success|success|success|success,8000000,0,641,962,3,0
+4,N1-D1-K1,S,false,[object Object],96249,,4,8000000|99137|97212|96249,success|success|success|success,8000000,0,641,962,3,0
+4,N1-D1-K1,V,false,[object Object],96249,,4,8000000|99137|97212|96249,success|success|success|success,8000000,0,641,962,3,0
+5,N1-D1-K2,C,false,[object Object],97224,,4,8000000|99149|97224|96261,success|success|success|execution_failed,8000000,0,766,962,3,0
+5,N1-D1-K2,S,false,[object Object],97224,,4,8000000|99149|97224|96261,success|success|success|execution_failed,8000000,0,766,962,3,0
+5,N1-D1-K2,V,false,[object Object],97224,,4,8000000|99149|97224|96261,success|success|success|execution_failed,8000000,0,766,962,3,0
+6,N1-D3-K0,C,true,,46500,,1,8000000,success,8000000,46500,864,864,3,3
+6,N1-D3-K0,S,true,,46675,,5,8000000|49363|47827|47059|46675,success|success|success|success|success,8000000,46500,864,864,3,3
+6,N1-D3-K0,V,true,,46500,,2,8000000|46500,success|success,8000000,46500,864,864,3,3
+7,N1-D3-K1,C,false,[object Object],110216,,4,8000000|110216|108204|109210,success|success|execution_failed|execution_failed,8000000,0,951,1368,5,0
+7,N1-D3-K1,S,false,[object Object],110216,,4,8000000|110216|108204|109210,success|success|execution_failed|execution_failed,8000000,0,951,1368,5,0
+7,N1-D3-K1,V,false,[object Object],110216,,4,8000000|110216|108204|109210,success|success|execution_failed|execution_failed,8000000,0,951,1368,5,0
+8,N1-D3-K2,C,false,[object Object],110228,,4,8000000|110228|108216|109222,success|success|execution_failed|execution_failed,8000000,0,1076,1368,5,0
+8,N1-D3-K2,S,false,[object Object],110228,,4,8000000|110228|108216|109222,success|success|execution_failed|execution_failed,8000000,0,1076,1368,5,0
+8,N1-D3-K2,V,false,[object Object],110228,,4,8000000|110228|108216|109222,success|success|execution_failed|execution_failed,8000000,0,1076,1368,5,0
+9,N8-D0-K0,C,true,,67221,,1,8000000,success,8000000,67221,854,854,0,0
+9,N8-D0-K0,S,true,,68071,,4,8000000|70624|68922|68071,success|success|success|success,8000000,67221,854,854,0,0
+9,N8-D0-K0,V,true,,67221,,2,8000000|67221,success|success,8000000,67221,854,854,0,0
+10,N8-D0-K1,C,false,[object Object],128201,,4,8000000|131468|129290|128201,success|success|success|success,8000000,0,490,1358,2,0
+10,N8-D0-K1,S,false,[object Object],128201,,4,8000000|131468|129290|128201,success|success|success|success,8000000,0,490,1358,2,0
+10,N8-D0-K1,V,false,[object Object],128201,,4,8000000|131468|129290|128201,success|success|success|success,8000000,0,490,1358,2,0
+11,N8-D0-K2,C,false,[object Object],128223,,4,8000000|131490|129312|128223,success|success|success|success,8000000,0,1210,1358,2,0
+11,N8-D0-K2,S,false,[object Object],128223,,4,8000000|131490|129312|128223,success|success|success|success,8000000,0,1210,1358,2,0
+11,N8-D0-K2,V,false,[object Object],128223,,4,8000000|131490|129312|128223,success|success|success|success,8000000,0,1210,1358,2,0
+12,N8-D1-K0,C,true,,73240,,1,8000000,success,8000000,73240,1057,1057,1,1
+12,N8-D1-K0,S,true,,73545,,4,8000000|76164|74418|73545,success|success|success|success,8000000,73240,1057,1057,1,1
+12,N8-D1-K0,V,true,,73240,,2,8000000|73240,success|success,8000000,73240,1057,1057,1,1
+13,N8-D1-K1,C,false,[object Object],134786,,4,8000000|137007|134786|133676,success|success|success|execution_failed,8000000,0,645,1561,3,0
+13,N8-D1-K1,S,false,[object Object],134786,,4,8000000|137007|134786|133676,success|success|success|execution_failed,8000000,0,645,1561,3,0
+13,N8-D1-K1,V,false,[object Object],134786,,4,8000000|137007|134786|133676,success|success|success|execution_failed,8000000,0,645,1561,3,0
+14,N8-D1-K2,C,false,[object Object],135919,,4,8000000|137030|134809|135919,success|success|execution_failed|success,8000000,0,1365,1561,3,0
+14,N8-D1-K2,S,false,[object Object],135919,,4,8000000|137030|134809|135919,success|success|execution_failed|success,8000000,0,1365,1561,3,0
+14,N8-D1-K2,V,false,[object Object],135919,,4,8000000|137030|134809|135919,success|success|execution_failed|success,8000000,0,1365,1561,3,0
+15,N8-D3-K0,C,true,,85565,,1,8000000,success,8000000,85565,1463,1463,3,3
+15,N8-D3-K0,S,true,,86327,,4,8000000|87243|85411|86327,success|success|execution_failed|success,8000000,85565,1463,1463,3,3
+15,N8-D3-K0,V,true,,85565,,2,8000000|85565,success|success,8000000,85565,1463,1463,3,3
+16,N8-D3-K1,C,false,[object Object],149242,,10,8000000|148086|296172|222129|185107|166596|157341|152713|150399|149242,success|execution_failed|success|success|success|success|success|success|success|success,8000000,0,955,1967,5,0
+16,N8-D3-K1,S,false,[object Object],149242,,10,8000000|148086|296172|222129|185107|166596|157341|152713|150399|149242,success|execution_failed|success|success|success|success|success|success|success|success,8000000,0,955,1967,5,0
+16,N8-D3-K1,V,false,[object Object],149242,,10,8000000|148086|296172|222129|185107|166596|157341|152713|150399|149242,success|execution_failed|success|success|success|success|success|success|success|success,8000000,0,955,1967,5,0
+17,N8-D3-K2,C,false,[object Object],149266,,10,8000000|148109|296218|222163|185136|166622|157365|152737|150423|149266,success|execution_failed|success|success|success|success|success|success|success|success,8000000,0,1675,1967,5,0
+17,N8-D3-K2,S,false,[object Object],149266,,10,8000000|148109|296218|222163|185136|166622|157365|152737|150423|149266,success|execution_failed|success|success|success|success|success|success|success|success,8000000,0,1675,1967,5,0
+17,N8-D3-K2,V,false,[object Object],149266,,10,8000000|148109|296218|222163|185136|166622|157365|152737|150423|149266,success|execution_failed|success|success|success|success|success|success|success|success,8000000,0,1675,1967,5,0
+18,N64-D0-K0,C,true,,365563,,1,8000000,success,8000000,365563,5618,5618,0,0
+18,N64-D0-K0,S,true,,369632,,3,8000000|373702|369632,success|success|success,8000000,365563,5618,5618,0,0
+18,N64-D0-K0,V,true,,365563,,2,8000000|365563,success|success,8000000,365563,5618,5618,0,0
+19,N64-D0-K1,C,false,[object Object],430000,,3,8000000|434545|430000,success|success|success,8000000,0,494,6122,2,0
+19,N64-D0-K1,S,false,[object Object],430000,,3,8000000|434545|430000,success|success|success,8000000,0,494,6122,2,0
+19,N64-D0-K1,V,false,[object Object],430000,,3,8000000|434545|430000,success|success|success,8000000,0,494,6122,2,0
+20,N64-D0-K2,C,false,[object Object],430028,,3,8000000|434574|430028,success|success|success,8000000,0,5974,6122,2,0
+20,N64-D0-K2,S,false,[object Object],430028,,3,8000000|434574|430028,success|success|success,8000000,0,5974,6122,2,0
+20,N64-D0-K2,V,false,[object Object],430028,,3,8000000|434574|430028,success|success|success,8000000,0,5974,6122,2,0
+21,N64-D1-K0,C,true,,376317,,1,8000000,success,8000000,376317,5821,5821,1,1
+21,N64-D1-K0,S,true,,379241,,3,8000000|379241|375128,success|success|execution_failed,8000000,376317,5821,5821,1,1
+21,N64-D1-K0,V,true,,376317,,2,8000000|376317,success|success,8000000,376317,5821,5821,1,1
+22,N64-D1-K1,C,false,[object Object],440085,,3,8000000|440085|435496,success|success|execution_failed,8000000,0,649,6325,3,0
+22,N64-D1-K1,S,false,[object Object],440085,,3,8000000|440085|435496,success|success|execution_failed,8000000,0,649,6325,3,0
+22,N64-D1-K1,V,false,[object Object],440085,,3,8000000|440085|435496,success|success|execution_failed,8000000,0,649,6325,3,0
+23,N64-D1-K2,C,false,[object Object],440113,,3,8000000|440113|435524,success|success|execution_failed,8000000,0,6129,6325,3,0
+23,N64-D1-K2,S,false,[object Object],440113,,3,8000000|440113|435524,success|success|execution_failed,8000000,0,6129,6325,3,0
+23,N64-D1-K2,V,false,[object Object],440113,,3,8000000|440113|435524,success|success|execution_failed,8000000,0,6129,6325,3,0
+24,N64-D3-K0,C,true,,398341,,1,8000000,success,8000000,398341,6227,6227,3,3
+24,N64-D3-K0,S,true,,399467,,10,8000000|390320|780640|585480|487900|439110|414715|402517|396418|399467,success|execution_failed|success|success|success|success|success|success|execution_failed|success,8000000,398341,6227,6227,3,3
+24,N64-D3-K0,V,true,,398341,,2,8000000|398341,success|success,8000000,398341,6227,6227,3,3
+25,N64-D3-K1,C,false,[object Object],461737,,10,8000000|451164|902328|676746|563955|507559|479361|465262|458213|461737,success|execution_failed|success|success|success|success|success|success|execution_failed|success,8000000,0,959,6731,5,0
+25,N64-D3-K1,S,false,[object Object],461737,,10,8000000|451164|902328|676746|563955|507559|479361|465262|458213|461737,success|execution_failed|success|success|success|success|success|success|execution_failed|success,8000000,0,959,6731,5,0
+25,N64-D3-K1,V,false,[object Object],461737,,10,8000000|451164|902328|676746|563955|507559|479361|465262|458213|461737,success|execution_failed|success|success|success|success|success|success|execution_failed|success,8000000,0,959,6731,5,0
+26,N64-D3-K2,C,false,[object Object],465291,,10,8000000|451192|902384|676788|563990|507591|479391|465291|458241|461766,success|execution_failed|success|success|success|success|success|success|execution_failed|execution_failed,8000000,0,6439,6731,5,0
+26,N64-D3-K2,S,false,[object Object],465291,,10,8000000|451192|902384|676788|563990|507591|479391|465291|458241|461766,success|execution_failed|success|success|success|success|success|success|execution_failed|execution_failed,8000000,0,6439,6731,5,0
+26,N64-D3-K2,V,false,[object Object],465291,,10,8000000|451192|902384|676788|563990|507591|479391|465291|458241|461766,success|execution_failed|success|success|success|success|success|success|execution_failed|execution_failed,8000000,0,6439,6731,5,0
